@@ -13,9 +13,9 @@ const allowedFiles = new Set([
   "check-production-localhost.mjs",
 ]);
 const allowedRelativePaths = new Set([
-  "apps\\poupi-baby\\src\\lib\\backend-url.ts",
-  "apps\\poupi-baby\\src\\services\\api.ts",
-  "packages\\api-client\\src\\index.ts",
+  "apps/poupi-baby/src/lib/backend-url.ts",
+  "apps/poupi-baby/src/services/api.ts",
+  "packages/api-client/src/index.ts",
 ]);
 const sourceExtensions = new Set([".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx"]);
 const localhostPattern = /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?/g;
@@ -35,7 +35,7 @@ function walk(dir, findings) {
     }
     if (!hasAllowedExtension(entry) && !entry.endsWith(".md") && !entry.includes(".env")) continue;
     if (allowedFiles.has(entry)) continue;
-    if (allowedRelativePaths.has(relative(root, path))) continue;
+    if (allowedRelativePaths.has(relative(root, path).replaceAll("\\", "/"))) continue;
 
     const text = readFileSync(path, "utf8");
     const matches = text.match(localhostPattern);
