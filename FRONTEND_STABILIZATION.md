@@ -4,12 +4,15 @@ Last verified: 2026-05-26.
 
 ## Current State
 
-- This local folder has no detected `.git` directory.
+- This local folder is a Git repository on branch `main`.
+- GitHub remote: `https://github.com/poupi-hub/poupi-frontend.git`.
 - The workspace is a pnpm/turbo monorepo.
 - Apps live under `apps/*`.
 - Shared packages live under `packages/*`.
 - Real `.env.local` files exist locally and must not be committed.
 - Safe examples now exist as `.env.example` and per-app `.env.local.example` files.
+- `apps/poupi-baby` has a Dockerfile for reproducible Coolify builds.
+- `apps/poupi-baby` exposes `/health` for container and Traefik validation.
 
 ## Production Guardrail
 
@@ -31,7 +34,7 @@ Current status:
 - `npx --yes pnpm@9.15.0 lint` passes for the monorepo with warnings only in `apps/poupi-baby`.
 - `npx --yes pnpm@9.15.0 build` passes for the monorepo.
 - GitHub Actions CI is green on `main`.
-- Latest green run: `26451961070`.
+- Latest green run: `26453842683`.
 - Branch protection for `main` requires `Frontend checks`, strict status checks, no force pushes and no branch deletion.
 - `npx tsc --noEmit` passes in `apps/poupi-baby`.
 - `npx eslint .` in `apps/poupi-baby` has 0 errors and remaining warnings only.
@@ -40,6 +43,13 @@ Current status:
   - `apps/poupi-baby/src/services/api.ts`;
   - `packages/api-client/src/index.ts`.
 - Production throws when required URL env vars are missing.
+- Local Docker build verified with `docker build -f apps\poupi-baby\Dockerfile -t poupi-frontend-baby:local .`.
+- Coolify application exists:
+  - name: `poupi-frontend-baby`;
+  - uuid: `wsp5l6d144vs27lz7p37b1hk`;
+  - URL: `http://wsp5l6d144vs27lz7p37b1hk.65.109.239.250.sslip.io`;
+  - healthcheck: `/health`;
+  - status verified healthy on 2026-05-26.
 
 ## Target Rules
 
@@ -61,8 +71,9 @@ SENTRY_DSN=
 
 ## Safe Migration Sequence
 
-1. Connect Coolify/deploy flow to GitHub.
-2. Deploy from CI/Coolify, not from notebook-only state.
+1. Keep Coolify deploy flow attached to GitHub `main`.
+2. Keep production envs in Coolify, not in local `.env.local`.
+3. Promote to a stable domain after DNS/TLS ownership is confirmed.
 
 ## Do Not Do
 
