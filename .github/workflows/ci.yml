@@ -10,6 +10,11 @@ jobs:
   frontend:
     name: Frontend checks
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: https://api.example.com
+      BACKEND_URL: https://api.example.com
+      NEXT_PUBLIC_SITE_URL: https://www.example.com
+      NEXTAUTH_SECRET: ci-placeholder-secret
 
     steps:
       - uses: actions/checkout@v4
