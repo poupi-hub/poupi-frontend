@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-const PROTECTED_ROUTES = ['/dashboard', '/produto', '/alertas', '/billing', '/admin'];
+const PROTECTED_ROUTES = ['/dashboard', '/alertas', '/billing', '/admin'];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -60,5 +60,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/operacional', '/dashboard/:path*', '/produto/:path*', '/alertas/:path*', '/billing/:path*', '/admin/:path*'],
+  matcher: ['/', '/operacional', '/dashboard/:path*', '/alertas/:path*', '/billing/:path*', '/admin/:path*'],
 };
