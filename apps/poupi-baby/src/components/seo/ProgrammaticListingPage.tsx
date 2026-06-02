@@ -65,7 +65,7 @@ export function ProgrammaticListingPage({
                     </span>
                   )}
                   <span className="min-w-0 flex-1">
-                    {index === 0 && (
+                    {index === 0 && price !== null && (
                       <span className="mb-1 inline-block rounded-full bg-[#e8f8ee] px-2 py-0.5 text-[11px] font-semibold text-[#2f8a51]">🏆 Melhor preço</span>
                     )}
                     <span className="line-clamp-2 text-sm font-semibold">{name}</span>
