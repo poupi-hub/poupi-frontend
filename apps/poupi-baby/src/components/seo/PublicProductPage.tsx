@@ -151,9 +151,10 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                   <p className="mt-2 text-xs text-[#8A8FB1]">Atualizado em {updatedLabel}</p>
                 )}
 
-                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <div className="mt-4 grid gap-3 sm:grid-cols-4">
                   <PriceStat label="Menor Preço" value={bestPrice ? money(bestPrice) : 'Indisponível'} highlight />
-                  <PriceStat label="Lojas monitoradas" value={`${allOffers.length}`} />
+                  <PriceStat label="Maior Preço" value={maxPrice ? money(maxPrice) : 'Indisponível'} />
+                  <PriceStat label="Lojas" value={`${allOffers.length}`} />
                   <PriceStat label="Economia possível" value={spread > 0 ? money(spread) : '-'} />
                 </div>
               </div>
@@ -176,18 +177,24 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                   href="/login"
                   className="mt-4 block w-full rounded-lg bg-[#5B4CF0] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#493BD0]"
                 >
-                  Criar alerta de Preço Grátis
+                  Criar alerta
                 </Link>
+                <a
+                  href="#lojas"
+                  className="mt-2 block w-full rounded-lg border border-[#C9CEEA] px-4 py-2.5 text-center text-sm font-semibold text-[#5B4CF0] hover:bg-white"
+                >
+                  Ver lojas
+                </a>
                 <p className="mt-2 text-center text-xs text-[#8A8FB1]">Receba notificação quando baixar</p>
               </div>
             </div>
           </section>
 
           {/* Comparação de farmácias */}
-          <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
+          <section id="lojas" className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold">Comparação de preços por Farmácia</h2>
             <p className="mt-1 mb-4 text-sm text-[#5B607C]">
-              preços coletados automaticamente pelo Radar do Berço. Compare antes de comprar.
+              {available.length} loja{available.length !== 1 ? 's' : ''} com disponibilidade no momento. Preços coletados automaticamente pelo Radar do Berço.
             </p>
             <div className="space-y-3">
               {allOffers.length === 0 && (

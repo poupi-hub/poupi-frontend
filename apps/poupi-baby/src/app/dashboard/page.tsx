@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { track } from '@vercel/analytics';
 import { BrandLogo } from '../../components/brand/BrandLogo';
 import { MobileBottomNav } from '../../components/MobileBottomNav';
+import { ProductSearch } from '../../components/ProductSearch';
 
 type Offer = {
   id: string;
@@ -253,7 +254,17 @@ export default function DashboardPage() {
             <Metric label="Premium" value={typeof daysRemaining === 'number' ? daysRemaining : '-'} hint={typeof daysRemaining === 'number' ? 'dias restantes' : `${activeAlerts.length} alertas ativos`} icon="ti-crown" />
           </div>
 
-          <section className="mt-5 rounded-lg border border-[#E4E7F2] bg-white p-4 shadow-sm">
+          <section className="mt-5">
+            <ProductSearch compact />
+          </section>
+
+          <section id="url-fallback" className="mt-5 rounded-lg border border-[#E4E7F2] bg-white p-4 shadow-sm">
+            <div className="mb-3">
+              <h2 className="text-base font-semibold">Nao encontrou seu produto?</h2>
+              <p className="mt-1 text-sm text-[#5B607C]">
+                Cole uma URL para adicionar o item ao Radar do Berco. Esse fluxo antigo continua funcionando como fallback.
+              </p>
+            </div>
             <div className="flex flex-col gap-3 md:flex-row">
               <input
                 value={url}
@@ -331,9 +342,9 @@ export default function DashboardPage() {
                       <p className="mt-2 text-sm text-[#5B607C]">Comece em 3 passos para nunca pagar caro em produtos infantis.</p>
                       <div className="mt-6 grid gap-4 text-left sm:grid-cols-3">
                         {([
-                          { step: '1', title: 'Adicione um produto', desc: 'Cole o link de uma farmácia ou marketplace. O Radar busca todas as lojas.', icon: 'ti-link' },
-                          { step: '2', title: 'Compare os preços', desc: 'Veja o menor preço atual, histórico e custo por unidade em uma tela.', icon: 'ti-chart-bar' },
-                          { step: '3', title: 'Crie um alerta', desc: 'Defina seu preço-alvo e receba aviso por e-mail ou Telegram quando baixar.', icon: 'ti-bell-ringing' },
+                          { step: '1', title: 'Pesquise um produto', desc: 'Digite Pampers, MamyPoko, Aptamil, Mamadeira ou outra necessidade do dia.', icon: 'ti-search' },
+                          { step: '2', title: 'Escolha o produto', desc: 'Abra a ficha com menor preço, lojas, histórico e DealScore.', icon: 'ti-package' },
+                          { step: '3', title: 'Crie um alerta', desc: 'Defina preço-alvo, desconto desejado ou qualquer queda.', icon: 'ti-bell-ringing' },
                         ] as const).map(({ step, title, desc, icon }) => (
                           <div key={step} className="rounded-xl border border-[#E4E7F2] bg-[#FAFBFF] p-4 text-left">
                             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5B4CF0] text-sm font-black text-white">{step}</span>
@@ -344,10 +355,10 @@ export default function DashboardPage() {
                         ))}
                       </div>
                       <button
-                        onClick={() => { track('onboarding_cta_clicked'); document.querySelector<HTMLInputElement>('input[placeholder*="URL"]')?.focus(); }}
+                        onClick={() => { track('onboarding_cta_clicked'); document.querySelector<HTMLInputElement>('#product-search')?.focus(); }}
                         className="mt-6 rounded-xl bg-[#5B4CF0] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(91,76,240,0.3)] hover:bg-[#493BD0]"
                       >
-                        Adicionar primeiro produto →
+                        Pesquisar primeiro produto →
                       </button>
                     </div>
                   ) : (

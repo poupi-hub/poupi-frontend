@@ -45,6 +45,7 @@ export default function Home() {
           <BrandLogo compact />
           <nav className="hidden items-center gap-7 text-sm font-semibold text-[#17183F] md:flex">
             <a href="#como-funciona" className="hover:text-[#5B4CF0]">Como funciona</a>
+            <Link href="/produtos" className="hover:text-[#5B4CF0]">Produtos</Link>
             <a href="#categorias" className="hover:text-[#5B4CF0]">Categorias</a>
             <a href="#alertas" className="hover:text-[#5B4CF0]">Alertas de preço</a>
             <Link href="/faq" className="hover:text-[#5B4CF0]">FAQ</Link>
@@ -82,7 +83,7 @@ export default function Home() {
                 <i className="ti ti-search text-xl text-[#5B4CF0]" />
                 <span>O que você precisa hoje?</span>
               </div>
-              <Link href="/dashboard" className="rounded-2xl bg-[#5B4CF0] px-6 py-3 text-center text-sm font-bold text-white hover:bg-[#493BD0]">
+              <Link href="/produtos" className="rounded-2xl bg-[#5B4CF0] px-6 py-3 text-center text-sm font-bold text-white hover:bg-[#493BD0]">
                 Buscar preços
               </Link>
               <a href="#como-funciona" className="rounded-2xl px-6 py-3 text-center text-sm font-bold text-[#5B4CF0] hover:bg-[#F2F0FF]">
@@ -207,9 +208,9 @@ export default function Home() {
             </p>
           </div>
           <div className="flex flex-col justify-center gap-4 bg-[#5B4CF0] p-8 sm:p-10">
-            <Link href="/dashboard" className="rounded-2xl bg-white px-6 py-4 text-center text-sm font-black text-[#5B4CF0] hover:bg-[#F4F6FF]">
-              Buscar preços
-            </Link>
+              <Link href="/produtos" className="rounded-2xl bg-white px-6 py-4 text-center text-sm font-black text-[#5B4CF0] hover:bg-[#F4F6FF]">
+                Buscar preços
+              </Link>
             <Link href="/alertas" className="rounded-2xl border border-white/25 px-6 py-4 text-center text-sm font-black text-white hover:bg-white/10">
               Ver meus alertas
             </Link>
