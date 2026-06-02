@@ -6,9 +6,16 @@ const SITE_URL = getSiteUrl();
 type Params = { params: Promise<unknown> };
 
 async function fetchJson<T>(path: string): Promise<T> {
-  const res = await fetch(`${BACKEND}${path}`, { next: { revalidate: 3600 } });
-  if (!res.ok) return [] as T;
-  return res.json() as Promise<T>;
+  try {
+    const res = await fetch(`${BACKEND}${path}`, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8_000),
+    });
+    if (!res.ok) return [] as T;
+    return res.json() as Promise<T>;
+  } catch {
+    return [] as T;
+  }
 }
 
 export async function GET(_req: Request, { params }: Params) {
