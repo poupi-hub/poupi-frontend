@@ -4,7 +4,7 @@ const items = [
   ['Como funcionam os alertas?', 'Você adiciona um produto e define uma meta. O Radar do Berço acompanha as ofertas e avisa quando o Preço chega ao valor desejado.'],
   ['O que muda no Premium?', 'O Premium aumenta limites, libera mais histórico e melhora a prioridade de acompanhamento, conforme o plano escolhido.'],
   ['Como recebo notificações?', 'As notificações dependem do e-mail confirmado. Por isso recomendamos confirmar seu e-mail na página Minha conta.'],
-  ['Quais pagamentos são aceitos?', 'Os pagamentos dependem do gateway configurado na plataforma. Em desenvolvimento, o sistema pode usar um gateway de teste.'],
+  ['Quais pagamentos são aceitos?', 'Os pagamentos são realizados com segurança por cartão de crédito. Você pode cancelar sua assinatura a qualquer momento sem burocracia.'],
   ['Posso cancelar?', 'Sim. O cancelamento pode ser feito na página de planos. O acesso permanece Até o fim do período já pago quando houver assinatura ativa.'],
   ['Quais lojas são monitoradas?', 'A quantidade real de lojas aparece na home com base nas ofertas cadastradas. A plataforma Não exibe lojas fictícias.'],
 ];

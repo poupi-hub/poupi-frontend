@@ -5,12 +5,12 @@ import { signIn } from 'next-auth/react';
 import { BrandLogo, CribRadarIcon } from '../components/brand/BrandLogo';
 
 const categories = [
-  { name: 'Fraldas', icon: 'ti-baby-carriage', tone: 'bg-[#EAF7FF]' },
-  { name: 'Fórmulas', icon: 'ti-bottle', tone: 'bg-[#FFF2CE]' },
-  { name: 'Mamadeiras', icon: 'ti-cup', tone: 'bg-[#F0EEFF]' },
-  { name: 'Higiene', icon: 'ti-droplet', tone: 'bg-[#FFEAF3]' },
-  { name: 'Brinquedos', icon: 'ti-ball-football', tone: 'bg-[#EAF8E9]' },
-  { name: 'Alimentação', icon: 'ti-bowl', tone: 'bg-[#EEF4FF]' },
+  { name: 'Fraldas',    slug: 'fraldas',    icon: 'ti-baby-carriage',   tone: 'bg-[#EAF7FF]' },
+  { name: 'Fórmulas',   slug: 'formulas',   icon: 'ti-bottle',          tone: 'bg-[#FFF2CE]' },
+  { name: 'Mamadeiras', slug: 'mamadeiras', icon: 'ti-cup',             tone: 'bg-[#F0EEFF]' },
+  { name: 'Higiene',    slug: 'higiene',    icon: 'ti-droplet',         tone: 'bg-[#FFEAF3]' },
+  { name: 'Brinquedos', slug: 'brinquedos', icon: 'ti-ball-football',   tone: 'bg-[#EAF8E9]' },
+  { name: 'Alimentação',slug: 'alimentacao',icon: 'ti-bowl',            tone: 'bg-[#EEF4FF]' },
 ];
 
 const benefits = [
@@ -143,7 +143,7 @@ export default function Home() {
       <section id="categorias" className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {categories.map((category) => (
-            <Link key={category.name} href="/dashboard" className={`rounded-2xl ${category.tone} p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg`}>
+            <Link key={category.name} href={`/categoria/${category.slug}`} className={`rounded-2xl ${category.tone} p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg`}>
               <i className={`ti ${category.icon} text-3xl text-[#5B4CF0]`} />
               <h2 className="mt-5 text-lg font-black">{category.name}</h2>
               <p className="mt-2 text-sm font-semibold text-[#3D4263]">Compare agora</p>
@@ -192,7 +192,7 @@ export default function Home() {
             </span>
             <h2 className="mt-6 text-3xl font-black tracking-tight">Receba alertas quando o preço baixar</h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-white/75">
-              Ative alertas por WhatsApp, Telegram ou e-mail e acompanhe os produtos essenciais da sua família sem gastar tempo procurando.
+              Ative alertas por Telegram ou e-mail e acompanhe os produtos essenciais da sua família sem gastar tempo procurando.
             </p>
           </div>
           <div className="flex flex-col justify-center gap-4 bg-[#5B4CF0] p-8 sm:p-10">

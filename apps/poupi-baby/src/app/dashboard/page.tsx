@@ -218,11 +218,7 @@ export default function DashboardPage() {
               <div>
                 <p className="text-sm text-white/75">{displayName ? 'Que bom ter você por aqui.' : 'Atualize seu perfil para personalizar sua experiência.'}</p>
                 <h1 className="mt-1 text-3xl font-semibold tracking-tight">{greeting} <span aria-hidden>👋</span></h1>
-                {!profile?.emailVerified && (
-                  <Link href="/conta" className="mt-4 inline-flex rounded-lg bg-white/15 px-3 py-2 text-sm font-medium text-white">
-                    Confirme seu e-mail para garantir o recebimento dos alertas de preço.
-                  </Link>
-                )}
+                {/* email verification moved below header for higher visibility */}
               </div>
               <div className="rounded-lg bg-white/14 p-4">
                 <div className="text-sm text-white/75">Plano atual</div>
@@ -233,6 +229,19 @@ export default function DashboardPage() {
               </div>
             </div>
           </header>
+
+          {/* ── Email verification banner ── */}
+          {!profile?.emailVerified && (
+            <div className="mt-4 flex flex-col items-start gap-3 rounded-xl border border-[#F59E0B] bg-[#FFFBEB] px-4 py-3 sm:flex-row sm:items-center">
+              <i className="ti ti-alert-triangle shrink-0 text-xl text-[#D97706]" />
+              <p className="flex-1 text-sm font-medium text-[#92400E]">
+                ⚠️ Confirme seu e-mail para receber alertas de preço. Sem confirmação, as notificações não chegam.
+              </p>
+              <Link href="/conta" className="shrink-0 rounded-lg bg-[#F59E0B] px-4 py-2 text-xs font-bold text-white hover:bg-[#D97706]">
+                Confirmar agora →
+              </Link>
+            </div>
+          )}
 
           <div className="mt-5 grid gap-4 md:grid-cols-4">
             <Metric label="Produtos monitorados" value={products.length} hint={quota?.unlimited ? 'Ilimitado no seu plano' : quota ? `${Math.max(0, quota.max - quota.current)} espaços restantes` : 'Monitorados por você'} icon="ti-package" />
@@ -260,7 +269,12 @@ export default function DashboardPage() {
 
           {topOpportunities.length > 0 && (
             <section className="mt-5 rounded-lg border border-[#d5f0de] bg-[#f6fdf8] p-4 shadow-sm">
-              <h2 className="flex items-center gap-2 text-base font-semibold text-[#2f8a51]"><i className="ti ti-sparkles" />Melhores oportunidades agora</h2>
+              <h2 className="flex items-center gap-2 text-base font-semibold text-[#2f8a51]">
+                <i className="ti ti-sparkles" />Melhores oportunidades agora
+                <span title="DealScore combina preço atual, histórico e disponibilidade. 80+ = Excelente oportunidade | 60–79 = Bom preço | Abaixo de 60 = preço normal" className="cursor-help text-xs font-normal text-[#4a7a5e]">
+                  <i className="ti ti-info-circle" />
+                </span>
+              </h2>
               <p className="mt-1 text-xs text-[#4a7a5e]">Produtos da sua lista com o melhor DealScore no momento.</p>
               <div className="mt-3 grid gap-3 sm:grid-cols-3">
                 {topOpportunities.map(({ product, badge }) => {
@@ -306,15 +320,46 @@ export default function DashboardPage() {
             <div className="divide-y divide-[#EDF0FB]">
               {sortedProducts.length === 0 ? (
                 <div className="p-10 text-center">
-                  <i className="ti ti-package text-4xl text-[#b9aec8]" />
-                  <h3 className="mt-3 text-base font-semibold text-[#090A3D]">Nenhum produto monitorado ainda</h3>
-                  <p className="mt-2 mx-auto max-w-sm text-sm text-[#5B607C]">
-                    Cole o link de qualquer produto de Farmácia acima. O Radar do Berço compara preços entre lojas e te avisa quando cair.
-                  </p>
-                  <div className="mt-4 mx-auto max-w-sm rounded-lg bg-[#EEF2FF] px-4 py-3 text-left text-xs text-[#5B607C]">
-                    <span className="font-semibold text-[#5B4CF0]">Exemplo:</span>{' '}
-                    <span className="break-all">https://www.drogasil.com.br/produto/fraldas-pampers...</span>
-                  </div>
+                  {/* ── Onboarding: shown only on first access (no products, no alerts) ── */}
+                  {alerts.length === 0 ? (
+                    <div className="px-4 py-8">
+                      <i className="ti ti-radar text-5xl text-[#5B4CF0]" />
+                      <h3 className="mt-4 text-lg font-bold text-[#090A3D]">Bem-vindo ao Radar do Berço</h3>
+                      <p className="mt-2 text-sm text-[#5B607C]">Comece em 3 passos para nunca pagar caro em produtos infantis.</p>
+                      <div className="mt-6 grid gap-4 text-left sm:grid-cols-3">
+                        {([
+                          { step: '1', title: 'Adicione um produto', desc: 'Cole o link de uma farmácia ou marketplace. O Radar busca todas as lojas.', icon: 'ti-link' },
+                          { step: '2', title: 'Compare os preços', desc: 'Veja o menor preço atual, histórico e custo por unidade em uma tela.', icon: 'ti-chart-bar' },
+                          { step: '3', title: 'Crie um alerta', desc: 'Defina seu preço-alvo e receba aviso por e-mail ou Telegram quando baixar.', icon: 'ti-bell-ringing' },
+                        ] as const).map(({ step, title, desc, icon }) => (
+                          <div key={step} className="rounded-xl border border-[#E4E7F2] bg-[#FAFBFF] p-4 text-left">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5B4CF0] text-sm font-black text-white">{step}</span>
+                            <i className={`ti ${icon} mt-3 text-2xl text-[#5B4CF0]`} />
+                            <h4 className="mt-2 text-sm font-bold text-[#090A3D]">{title}</h4>
+                            <p className="mt-1 text-xs leading-5 text-[#5B607C]">{desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => document.querySelector<HTMLInputElement>('input[placeholder*="URL"]')?.focus()}
+                        className="mt-6 rounded-xl bg-[#5B4CF0] px-6 py-3 text-sm font-bold text-white shadow-[0_8px_24px_rgba(91,76,240,0.3)] hover:bg-[#493BD0]"
+                      >
+                        Adicionar primeiro produto →
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="p-10 text-center">
+                      <i className="ti ti-package text-4xl text-[#b9aec8]" />
+                      <h3 className="mt-3 text-base font-semibold text-[#090A3D]">Nenhum produto monitorado ainda</h3>
+                      <p className="mt-2 mx-auto max-w-sm text-sm text-[#5B607C]">
+                        Cole o link de qualquer produto de Farmácia acima. O Radar do Berço compara preços entre lojas e te avisa quando cair.
+                      </p>
+                      <div className="mt-4 mx-auto max-w-sm rounded-lg bg-[#EEF2FF] px-4 py-3 text-left text-xs text-[#5B607C]">
+                        <span className="font-semibold text-[#5B4CF0]">Exemplo:</span>{' '}
+                        <span className="break-all">https://www.drogasil.com.br/produto/fraldas-pampers...</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : sortedProducts.map((product) => {
                 const offer = bestOffer(product);
@@ -335,7 +380,7 @@ export default function DashboardPage() {
                           {savings > 0 && <span className="rounded-full bg-[#fff5d8] px-2.5 py-1 text-xs font-semibold text-[#8a6316]">economia até {money(savings)}</span>}
                           <span className="rounded-full bg-[#EEF2FF] px-2.5 py-1 text-xs font-semibold text-[#5B4CF0]">{availableOffers}/{product.offers?.length ?? 0} ofertas ativas</span>
                           {offer?.pricePerUnit && <span className="rounded-full bg-[#F2F4FF] px-2.5 py-1 text-xs font-semibold text-[#5B607C]">{money(Number(offer.pricePerUnit))}/un</span>}
-                          {scoreBadge && <span title={`DealScore: ${scoreBadge.label}`} style={{ background: scoreBadge.labelColor + '22', color: scoreBadge.labelColor, borderColor: scoreBadge.labelColor + '55' }} className="rounded-full border px-2.5 py-1 text-xs font-semibold">{scoreBadge.emoji} {scoreBadge.score} Â· {scoreBadge.label}</span>}
+                          {scoreBadge && <span title="DealScore combina preço atual, histórico e disponibilidade. 80+ = Excelente oportunidade | 60–79 = Bom preço | Abaixo de 60 = preço normal" style={{ background: scoreBadge.labelColor + '22', color: scoreBadge.labelColor, borderColor: scoreBadge.labelColor + '55' }} className="cursor-help rounded-full border px-2.5 py-1 text-xs font-semibold">{scoreBadge.emoji} {scoreBadge.score} · {scoreBadge.label}</span>}
                         </div>
                       </div>
                     </Link>
@@ -354,7 +399,7 @@ export default function DashboardPage() {
           </section>
           <footer className="mt-8 flex flex-wrap gap-4 pb-4 text-sm text-[#5B607C]">
             <Link href="/faq" className="hover:text-[#5B4CF0]">FAQ</Link>
-            <Link href="/privacidade" className="hover:text-[#5B4CF0]">Politica de Privacidade</Link>
+            <Link href="/privacidade" className="hover:text-[#5B4CF0]">Política de Privacidade</Link>
             <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
           </footer>
         </section>

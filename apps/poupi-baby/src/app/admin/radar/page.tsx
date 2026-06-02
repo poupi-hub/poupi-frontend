@@ -151,7 +151,7 @@ export default function AdminRadarPage() {
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <h2 className="truncate text-sm font-semibold text-slate-100">{item.product}</h2>
-                  <p className="mt-1 text-xs text-slate-500">{item.marketplace ?? 'Loja monitorada'} Â· {money(item.price)}</p>
+                  <p className="mt-1 text-xs text-slate-500">{item.marketplace ?? 'Loja monitorada'} · {money(item.price)}</p>
                 </div>
                 <Badge tone={item.score >= 0.62 ? 'good' : 'warn'}>score {item.score}</Badge>
               </div>
@@ -175,7 +175,7 @@ export default function AdminRadarPage() {
             <div key={row.id} className="grid gap-3 px-4 py-3 md:grid-cols-[1fr_120px_120px_160px] md:items-center">
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-slate-200">{row.payload?.product ?? row.productId}</p>
-                <p className="mt-1 text-xs text-slate-500">{row.payload?.marketplace ?? row.chatId} Â· {row.reason ?? 'sem observacao'}</p>
+                <p className="mt-1 text-xs text-slate-500">{row.payload?.marketplace ?? row.chatId} · {row.reason ?? 'sem observacao'}</p>
               </div>
               <div className="text-sm text-slate-300">{money(row.priceSnapshot)}</div>
               <Badge tone={row.status === 'sent' ? 'good' : 'warn'}>{row.status}</Badge>

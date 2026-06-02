@@ -169,7 +169,7 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                 {dealScore && (
                   <div title={`DealScore Radar do Berço: ${dealScore.label}`} style={{ background: dealScore.labelColor + '18', borderColor: dealScore.labelColor + '44', color: dealScore.labelColor }} className="mt-3 flex items-center justify-between rounded-lg border px-3 py-2 text-sm font-semibold">
                     <span>DealScore Radar do Berço</span>
-                    <span>{dealScore.emoji} {dealScore.score} Â· {dealScore.label}</span>
+                    <span>{dealScore.emoji} {dealScore.score} · {dealScore.label}</span>
                   </div>
                 )}
                 <Link
@@ -267,7 +267,7 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
             >
               🔔 Monitorar Preço Grátis
             </Link>
-            <p className="mt-2 text-xs text-[#8A8FB1]">Grátis Â· Sem cartão Â· Cancele quando quiser</p>
+            <p className="mt-2 text-xs text-[#8A8FB1]">Grátis · Sem cartão · Cancele quando quiser</p>
           </section>
 
           <SeoInternalLinks graph={internalLinks} />
