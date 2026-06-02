@@ -1,4 +1,4 @@
-const FALLBACK_SITE_URL = 'http://localhost:3000';
+const FALLBACK_SITE_URL = 'https://radardoberco.com.br';
 
 export function getSiteUrl() {
   const raw = process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_SITE_URL;
