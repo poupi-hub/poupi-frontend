@@ -352,7 +352,7 @@ export function ProductPageClient() {
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-2">
-                            {index === 0 && <span className="rounded-full bg-[#e8f8ee] px-2 py-1 text-xs font-semibold text-[#2f8a51]">🏆 Melhor preço</span>}
+                            {index === 0 && offer.availability && <span className="rounded-full bg-[#e8f8ee] px-2 py-1 text-xs font-semibold text-[#2f8a51]">🏆 Melhor preço</span>}
                             <span className="font-semibold">🛒 {offer.marketplace.name}</span>
                             {!offer.availability && <span className="rounded-full bg-[#fff1f1] px-2 py-1 text-xs font-semibold text-[#b13a3a]">indisponível</span>}
                             {score && <span className="rounded-full bg-[#f0faf3] px-2 py-1 text-xs font-semibold text-[#2f8a51]">💚 Economia Inteligente: {score.score}/100</span>}
