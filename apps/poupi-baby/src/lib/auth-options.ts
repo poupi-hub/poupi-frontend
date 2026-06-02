@@ -58,7 +58,11 @@ export const authOptions: NextAuthOptions = {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: credentials.email, password: credentials.password }),
         });
-        if (!res.ok) return null;
+        if (!res.ok) {
+          const error = await res.json().catch(() => null);
+          const message = Array.isArray(error?.message) ? error.message[0] : error?.message;
+          throw new Error(message || 'Email ou senha inválidos.');
+        }
         const data = await res.json();
         return { id: data.user.id, name: data.user.name, email: data.user.email, role: data.user.role, backendToken: data.token };
       },

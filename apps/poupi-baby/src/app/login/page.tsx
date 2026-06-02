@@ -12,6 +12,12 @@ const products = [
   { name: 'Lenço Huggies One Done', price: '18,90', change: '-31%', icon: 'ti-droplet' },
 ];
 
+const loginErrorMessages: Record<string, string> = {
+  CredentialsSignin: 'Email ou senha inválidos.',
+  'Email nao encontrado': 'Email não encontrado.',
+  'Senha invalida': 'Senha inválida.',
+};
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,7 +55,7 @@ export default function LoginPage() {
     setLoginLoading(false);
 
     if (result?.error) {
-      setLoginError('Email ou senha inválidos.');
+      setLoginError(loginErrorMessages[result.error] ?? 'Não foi possível entrar. Tente novamente.');
     } else if (result?.url) {
       window.location.href = result.url;
     }
@@ -154,7 +160,9 @@ export default function LoginPage() {
             <div className="mt-5 sm:mt-6">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-semibold text-[#111827] sm:text-base">Senha</label>
-                <button className="text-xs font-semibold text-[#5B4CF0] sm:text-sm">Esqueci minha senha</button>
+                <Link href="/recuperar-senha" className="text-xs font-semibold text-[#5B4CF0] sm:text-sm">
+                  Esqueci minha senha
+                </Link>
               </div>
               <input
                 type="password"
@@ -177,11 +185,18 @@ export default function LoginPage() {
               {loginLoading ? 'Entrando...' : 'Entrar'}
             </button>
 
+            <p className="mt-5 text-center text-sm text-[#5B607C] sm:text-base">
+              Não tem conta?{' '}
+              <Link href="/cadastro" className="font-bold text-[#5B4CF0] hover:underline">
+                Criar conta com email
+              </Link>
+            </p>
+
             {googleEnabled && (
               <>
                 <div className="my-7 flex items-center gap-4 sm:my-8">
                   <div className="h-[1px] flex-1 bg-[#E4E7F2]" />
-                  <span className="text-xs text-[#8A8FB1] sm:text-sm">OU</span>
+                  <span className="text-xs text-[#8A8FB1] sm:text-sm">ou entre com Google</span>
                   <div className="h-[1px] flex-1 bg-[#E4E7F2]" />
                 </div>
 
