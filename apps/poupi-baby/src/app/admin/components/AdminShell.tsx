@@ -5,18 +5,18 @@ import { usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
 const nav = [
-  ['dashboard', 'VisÃ£o geral', 'ti-layout-dashboard'],
+  ['dashboard', 'Visão geral', 'ti-layout-dashboard'],
   ['products', 'Produtos', 'ti-packages'],
   ['offers', 'Ofertas', 'ti-tags'],
   ['marketplaces', 'Marketplaces', 'ti-building-store'],
-  ['users', 'UsuÃ¡rios', 'ti-users'],
+  ['users', 'Usuários', 'ti-users'],
   ['alerts', 'Alertas', 'ti-bell'],
   ['radar', 'Radar Telegram', 'ti-send'],
   ['scraping', 'Scraping', 'ti-robot'],
   ['jobs', 'Filas', 'ti-list-check'],
   ['analytics', 'Analytics', 'ti-chart-line'],
   ['logs', 'Logs', 'ti-file-text'],
-  ['settings', 'ConfiguraÃ§Ãµes', 'ti-settings'],
+  ['settings', 'Configurações', 'ti-settings'],
 ] as const;
 
 export function AdminShell({ children }: { children: React.ReactNode }) {

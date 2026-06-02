@@ -7,7 +7,10 @@ const BACKEND  = getBackendUrl("3001");
 
 async function fetchJson<T>(path: string): Promise<T | null> {
   try {
-    const res = await fetch(`${BACKEND}${path}`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${BACKEND}${path}`, {
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8_000),
+    });
     if (!res.ok) return null;
     return res.json() as Promise<T>;
   } catch {

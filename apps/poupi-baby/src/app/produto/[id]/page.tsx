@@ -53,17 +53,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = [
     name,
     product.brand ? `Marca: ${product.brand}` : '',
-    price ? `Menor preÃ§o: R$ ${price.toFixed(2).replace('.', ',')}` : '',
+    price ? `Menor Preço: R$ ${price.toFixed(2).replace('.', ',')}` : '',
     store ? `em ${store}` : '',
     product.category ? `| ${product.category}` : '',
-    '| Radar do Berço Monitor de PreÃ§os',
+    '| Radar do Berço Monitor de preços',
   ].filter(Boolean).join(' ');
 
   const productJsonLd: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name,
-    description: `Compare preÃ§os de ${name} nas principais farmÃ¡cias. HistÃ³rico de preÃ§o, score Radar do Berço e alertas automÃ¡ticos.`,
+    description: `Compare preços de ${name} nas principais farmácias. histórico de Preço, score Radar do Berço e alertas automáticos.`,
     brand: product.brand ? { '@type': 'Brand', name: product.brand } : undefined,
     sku: product.ean ?? undefined,
     image: product.imageUrl ?? undefined,
@@ -82,11 +82,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${name} â€” Melhor PreÃ§o | Radar do Berço`,
+    title: `${name} — Melhor Preço | Radar do Berço`,
     description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: `${name} â€” Melhor PreÃ§o`,
+      title: `${name} — Melhor Preço`,
       description,
       url: canonicalUrl,
       type: 'website',
@@ -96,7 +96,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${name} â€” Melhor PreÃ§o | Radar do Berço`,
+      title: `${name} — Melhor Preço | Radar do Berço`,
       description,
       images: product.imageUrl ? [product.imageUrl] : [],
     },
@@ -119,7 +119,7 @@ export default async function Page({ params }: Props) {
   ]);
   if (!product) notFound();
 
-  // Fetch deal score â€” endpoint is now public (no auth required)
+  // Fetch deal score — endpoint is now public (no auth required)
   let dealScore: { score: number; emoji: string; label: string; labelColor: string } | null = null;
   try {
     const dsRes = await fetch(`${BACKEND}/deal-score/product/${product.id}`, {

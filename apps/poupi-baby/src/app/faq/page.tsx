@@ -1,12 +1,12 @@
 ﻿import Link from 'next/link';
 
 const items = [
-  ['Como funcionam os alertas?', 'VocÃª adiciona um produto e define uma meta. O Radar do Berço acompanha as ofertas e avisa quando o preÃ§o chega ao valor desejado.'],
-  ['O que muda no Premium?', 'O Premium aumenta limites, libera mais histÃ³rico e melhora a prioridade de acompanhamento, conforme o plano escolhido.'],
-  ['Como recebo notificaÃ§Ãµes?', 'As notificaÃ§Ãµes dependem do e-mail confirmado. Por isso recomendamos confirmar seu e-mail na pÃ¡gina Minha conta.'],
-  ['Quais pagamentos sÃ£o aceitos?', 'Os pagamentos dependem do gateway configurado na plataforma. Em desenvolvimento, o sistema pode usar um gateway de teste.'],
-  ['Posso cancelar?', 'Sim. O cancelamento pode ser feito na pÃ¡gina de planos. O acesso permanece atÃ© o fim do perÃ­odo jÃ¡ pago quando houver assinatura ativa.'],
-  ['Quais lojas sÃ£o monitoradas?', 'A quantidade real de lojas aparece na home com base nas ofertas cadastradas. A plataforma nÃ£o exibe lojas fictÃ­cias.'],
+  ['Como funcionam os alertas?', 'Você adiciona um produto e define uma meta. O Radar do Berço acompanha as ofertas e avisa quando o Preço chega ao valor desejado.'],
+  ['O que muda no Premium?', 'O Premium aumenta limites, libera mais histórico e melhora a prioridade de acompanhamento, conforme o plano escolhido.'],
+  ['Como recebo notificações?', 'As notificações dependem do e-mail confirmado. Por isso recomendamos confirmar seu e-mail na página Minha conta.'],
+  ['Quais pagamentos são aceitos?', 'Os pagamentos dependem do gateway configurado na plataforma. Em desenvolvimento, o sistema pode usar um gateway de teste.'],
+  ['Posso cancelar?', 'Sim. O cancelamento pode ser feito na página de planos. O acesso permanece Até o fim do período já pago quando houver assinatura ativa.'],
+  ['Quais lojas são monitoradas?', 'A quantidade real de lojas aparece na home com base nas ofertas cadastradas. A plataforma Não exibe lojas fictícias.'],
 ];
 
 export default function FaqPage() {
@@ -15,7 +15,7 @@ export default function FaqPage() {
       <div className="mx-auto max-w-3xl">
         <Link href="/dashboard" className="text-sm font-medium text-[#5B4CF0]">Voltar</Link>
         <h1 className="mt-5 text-3xl font-semibold tracking-tight">Perguntas frequentes</h1>
-        <p className="mt-2 text-sm text-[#5B607C]">Respostas diretas sobre alertas, planos, notificaÃ§Ãµes e lojas monitoradas.</p>
+        <p className="mt-2 text-sm text-[#5B607C]">Respostas diretas sobre alertas, planos, notificações e lojas monitoradas.</p>
         <div className="mt-6 divide-y divide-[#EDF0FB] rounded-lg border border-[#E4E7F2] bg-white shadow-sm">
           {items.map(([question, answer]) => (
             <section key={question} className="p-5">

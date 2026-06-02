@@ -26,15 +26,15 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const data = await fetchBestPrice(slug);
-  if (!data?.product) return { title: 'Melhor PreÃ§o | Radar do Berço', robots: { index: false } };
+  if (!data?.product) return { title: 'Melhor Preço | Radar do Berço', robots: { index: false } };
 
   const name = data.product.canonicalName || data.product.title;
   const price = data.bestOffer ? Number(data.bestOffer.currentPrice ?? data.bestOffer.price) : null;
   const url = `${SITE_URL}/melhor-preco/${slug}`;
-  const title = `Melhor preÃ§o de ${name} | Radar do Berço`;
+  const title = `Melhor Preço de ${name} | Radar do Berço`;
   const description = price
-    ? `Melhor preÃ§o de ${name} hoje: ${money(price)}. Compare todas as farmÃ¡cias e drogarias. HistÃ³rico atualizado pelo Radar do Berço.`
-    : `Compare preÃ§os de ${name} nas farmÃ¡cias. HistÃ³rico atualizado pelo Radar do Berço.`;
+    ? `Melhor Preço de ${name} hoje: ${money(price)}. Compare todas as farmácias e drogarias. histórico atualizado pelo Radar do Berço.`
+    : `Compare preços de ${name} nas farmácias. histórico atualizado pelo Radar do Berço.`;
 
   return {
     title,
@@ -114,7 +114,7 @@ export default async function MelhorPrecoPage({ params }: Props) {
               <li aria-hidden>/</li>
               <li><a href={`/produto/${slug}`} className="hover:text-[#5B4CF0]">{name}</a></li>
               <li aria-hidden>/</li>
-              <li className="font-medium text-[#090A3D]">Melhor preÃ§o</li>
+              <li className="font-medium text-[#090A3D]">Melhor Preço</li>
             </ol>
           </nav>
 
@@ -125,16 +125,16 @@ export default async function MelhorPrecoPage({ params }: Props) {
               )}
               <div className="min-w-0">
                 {product.brand && <p className="text-xs font-semibold text-[#5B4CF0]">{product.brand}</p>}
-                <h1 className="text-xl font-semibold tracking-tight">Melhor preÃ§o de {name}</h1>
+                <h1 className="text-xl font-semibold tracking-tight">Melhor Preço de {name}</h1>
                 <p className="mt-1 text-sm text-[#5B607C]">
-                  ComparaÃ§Ã£o em {allOffers.length} loja{allOffers.length !== 1 ? 's' : ''}, atualizado pelo Radar do Berço.
+                  Comparação em {allOffers.length} loja{allOffers.length !== 1 ? 's' : ''}, atualizado pelo Radar do Berço.
                 </p>
               </div>
             </div>
 
             {bestPrice && bestOffer && (
               <div className="mt-4 rounded-lg bg-[#EEF2FF] p-4">
-                <p className="text-sm font-medium text-[#5B607C]">Menor preÃ§o encontrado</p>
+                <p className="text-sm font-medium text-[#5B607C]">Menor Preço encontrado</p>
                 <p className="mt-1 text-3xl font-bold text-[#5B4CF0]">{money(bestPrice)}</p>
                 <p className="mt-1 text-sm text-[#090A3D]">{bestOffer.marketplace.name}</p>
                 {bestOffer.pricePerUnit && <p className="text-xs text-[#5B607C]">{money(Number(bestOffer.pricePerUnit))}/unidade</p>}
@@ -143,7 +143,7 @@ export default async function MelhorPrecoPage({ params }: Props) {
                     href={`/login?redirect=${encodeURIComponent(`/produto/${slug}`)}`}
                     className="flex-1 rounded-lg bg-[#5B4CF0] px-4 py-2 text-center text-sm font-semibold text-white hover:bg-[#493BD0]"
                   >
-                    Criar alerta de preÃ§o
+                    Criar alerta de Preço
                   </a>
                   <a
                     href={`/produto/${slug}`}
@@ -157,7 +157,7 @@ export default async function MelhorPrecoPage({ params }: Props) {
           </header>
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-            <h2 className="mb-3 text-base font-semibold">PreÃ§os por farmÃ¡cia</h2>
+            <h2 className="mb-3 text-base font-semibold">preços por Farmácia</h2>
             <div className="space-y-2">
               {allOffers.map((o, i) => (
                 <div key={o.id} className={`flex items-center justify-between rounded-lg border p-3 ${i === 0 ? 'border-[#5B4CF0] bg-[#faf7ff]' : 'border-[#E4E7F2]'}`}>
@@ -175,10 +175,10 @@ export default async function MelhorPrecoPage({ params }: Props) {
           </section>
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">Quer ser avisado quando o preÃ§o baixar ainda mais?</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">Crie um alerta gratuito e receba notificaÃ§Ã£o no Telegram ou email.</p>
+            <h2 className="text-base font-semibold">Quer ser avisado quando o Preço baixar ainda mais?</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">Crie um alerta gratuito e receba notificação no Telegram ou email.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar alerta grÃ¡tis
+              Criar alerta Grátis
             </a>
           </section>
         </div>

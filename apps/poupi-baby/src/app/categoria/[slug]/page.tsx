@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await fetchCategory(slug);
   if (!data?.category) return { title: 'Categoria | Radar do Berço', robots: { index: false } };
 
-  const title = `${data.category} â€” Melhores PreÃ§os | Radar do Berço`;
-  const description = `Compare preÃ§os de ${data.category} nas principais farmÃ¡cias e drogarias. ${data.total} produtos monitorados com histÃ³rico de preÃ§o e alertas automÃ¡ticos.`;
+  const title = `${data.category} — Melhores preços | Radar do Berço`;
+  const description = `Compare preços de ${data.category} nas principais farmácias e drogarias. ${data.total} produtos monitorados com histórico de Preço e alertas automáticos.`;
   const url = `${SITE_URL}/categoria/${slug}`;
 
   return {
@@ -60,9 +60,9 @@ export default async function CategoryPage({ params }: Props) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `${category} â€” Melhores PreÃ§os`,
+    name: `${category} — Melhores preços`,
     url: `${SITE_URL}/categoria/${slug}`,
-    description: `Compare preÃ§os de ${category} nas principais farmÃ¡cias. ${total} produtos.`,
+    description: `Compare preços de ${category} nas principais farmácias. ${total} produtos.`,
     numberOfItems: total,
   };
 
@@ -92,10 +92,10 @@ export default async function CategoryPage({ params }: Props) {
           </nav>
 
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight">{category} â€” Melhores PreÃ§os</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">{category} — Melhores preços</h1>
             <p className="mt-1 text-sm text-[#5B607C]">
-              {total} produto{total !== 1 ? 's' : ''} monitorado{total !== 1 ? 's' : ''} nas principais farmÃ¡cias.
-              PreÃ§os atualizados automaticamente pelo Radar do Berço.
+              {total} produto{total !== 1 ? 's' : ''} monitorado{total !== 1 ? 's' : ''} nas principais farmácias.
+              preços atualizados automaticamente pelo Radar do Berço.
             </p>
           </header>
 
@@ -113,7 +113,7 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     {p.imageUrl
                       ? <img src={p.imageUrl} alt={name} width={56} height={56} className="h-14 w-14 rounded-lg object-contain" />
-                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">ðŸ“¦</div>}
+                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">📦</div>}
                     <div className="min-w-0 flex-1">
                       {p.brand && <p className="text-xs font-semibold text-[#5B4CF0]">{p.brand}</p>}
                       <h2 className="mt-0.5 line-clamp-2 text-sm font-semibold">{name}</h2>
@@ -124,7 +124,7 @@ export default async function CategoryPage({ params }: Props) {
                     <div>
                       {bestPrice
                         ? <p className="text-lg font-bold text-[#5B4CF0]">{money(bestPrice)}</p>
-                        : <p className="text-sm text-[#8A8FB1]">IndisponÃ­vel</p>}
+                        : <p className="text-sm text-[#8A8FB1]">Indisponível</p>}
                       {bestOffer?.pricePerUnit && (
                         <p className="text-xs text-[#5B607C]">{money(Number(bestOffer.pricePerUnit))}/un</p>
                       )}
@@ -140,15 +140,15 @@ export default async function CategoryPage({ params }: Props) {
 
           {pages > 1 && (
             <p className="text-center text-sm text-[#5B607C]">
-              Mostrando pÃ¡gina {page} de {pages} â€” <a href="/login" className="text-[#5B4CF0] hover:underline">Crie uma conta para monitorar preÃ§os</a>
+              Mostrando página {page} de {pages} — <a href="/login" className="text-[#5B4CF0] hover:underline">Crie uma conta para monitorar preços</a>
             </p>
           )}
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">Quer saber quando {category} entrar em promoÃ§Ã£o?</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">O Radar do Berço monitora preÃ§os 24h e envia alertas automÃ¡ticos.</p>
+            <h2 className="text-base font-semibold">Quer saber quando {category} entrar em promoção?</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">O Radar do Berço monitora preços 24h e envia alertas automáticos.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar conta grÃ¡tis
+              Criar conta Grátis
             </a>
           </section>
         </div>

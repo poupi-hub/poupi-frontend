@@ -217,7 +217,7 @@ export default function DashboardPage() {
             <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
               <div>
                 <p className="text-sm text-white/75">{displayName ? 'Que bom ter você por aqui.' : 'Atualize seu perfil para personalizar sua experiência.'}</p>
-                <h1 className="mt-1 text-3xl font-semibold tracking-tight">{greeting} <span aria-hidden>ðŸ‘‹</span></h1>
+                <h1 className="mt-1 text-3xl font-semibold tracking-tight">{greeting} <span aria-hidden>👋</span></h1>
                 {!profile?.emailVerified && (
                   <Link href="/conta" className="mt-4 inline-flex rounded-lg bg-white/15 px-3 py-2 text-sm font-medium text-white">
                     Confirme seu e-mail para garantir o recebimento dos alertas de preço.
@@ -309,7 +309,7 @@ export default function DashboardPage() {
                   <i className="ti ti-package text-4xl text-[#b9aec8]" />
                   <h3 className="mt-3 text-base font-semibold text-[#090A3D]">Nenhum produto monitorado ainda</h3>
                   <p className="mt-2 mx-auto max-w-sm text-sm text-[#5B607C]">
-                    Cole o link de qualquer produto de farmÃ¡cia acima. O Radar do Berço compara preÃ§os entre lojas e te avisa quando cair.
+                    Cole o link de qualquer produto de Farmácia acima. O Radar do Berço compara preços entre lojas e te avisa quando cair.
                   </p>
                   <div className="mt-4 mx-auto max-w-sm rounded-lg bg-[#EEF2FF] px-4 py-3 text-left text-xs text-[#5B607C]">
                     <span className="font-semibold text-[#5B4CF0]">Exemplo:</span>{' '}
@@ -329,7 +329,7 @@ export default function DashboardPage() {
                       {product.imageUrl ? <img src={product.imageUrl} alt={product.title} className="h-16 w-16 rounded-lg object-contain" /> : <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-[#EEF2FF] text-[#5B4CF0]"><i className="ti ti-package text-2xl" /></div>}
                       <div className="min-w-0">
                         <h3 className="truncate text-sm font-semibold">{product.title}</h3>
-                        <p className="mt-1 truncate text-xs text-[#5B607C]">{stores.join(' â€¢ ') || 'Sem ofertas ativas'}</p>
+                        <p className="mt-1 truncate text-xs text-[#5B607C]">{stores.join(' • ') || 'Sem ofertas ativas'}</p>
                         <div className="mt-2 flex flex-wrap gap-2">
                           {discount > 0 && <span className="rounded-full bg-[#e8f8ee] px-2.5 py-1 text-xs font-semibold text-[#2f8a51]">{discount}% abaixo da maior oferta</span>}
                           {savings > 0 && <span className="rounded-full bg-[#fff5d8] px-2.5 py-1 text-xs font-semibold text-[#8a6316]">economia até {money(savings)}</span>}

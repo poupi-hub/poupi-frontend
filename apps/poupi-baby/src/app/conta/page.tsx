@@ -50,7 +50,7 @@ export default function AccountPage() {
     const data = await res.json().catch(() => ({}));
     setSaving(false);
     if (!res.ok) {
-      setError(data?.message || 'NÃ£o foi possÃ­vel salvar seus dados.');
+      setError(data?.message || 'Não foi possível salvar seus dados.');
       return;
     }
     setProfile(data);
@@ -67,7 +67,7 @@ export default function AccountPage() {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data?.message || 'NÃ£o foi possÃ­vel alterar a senha.');
+      setError(data?.message || 'Não foi possível alterar a senha.');
       return;
     }
     setCurrentPassword('');
@@ -81,11 +81,11 @@ export default function AccountPage() {
     const res = await fetch('/api/account/email-confirmation', { method: 'POST' });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data?.message || 'NÃ£o foi possÃ­vel gerar o cÃ³digo.');
+      setError(data?.message || 'Não foi possível gerar o Código.');
       return;
     }
     setDevCode(data.devCode ?? null);
-    setMessage('CÃ³digo de confirmaÃ§Ã£o gerado.');
+    setMessage('Código de confirmação gerado.');
   }
 
   async function confirmEmail() {
@@ -98,7 +98,7 @@ export default function AccountPage() {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data?.message || 'CÃ³digo invÃ¡lido.');
+      setError(data?.message || 'Código inválido.');
       return;
     }
     setCode('');
@@ -147,7 +147,7 @@ export default function AccountPage() {
           <div>
             <Link href="/dashboard" className="text-sm font-medium text-[#5B4CF0]">Voltar ao painel</Link>
             <h1 className="mt-3 text-3xl font-semibold tracking-tight">Minha conta</h1>
-            <p className="mt-1 text-sm text-[#5B607C]">Mantenha seus dados atualizados para receber alertas com seguranÃ§a.</p>
+            <p className="mt-1 text-sm text-[#5B607C]">Mantenha seus dados atualizados para receber alertas com segurança.</p>
           </div>
         </div>
 
@@ -156,7 +156,7 @@ export default function AccountPage() {
 
         <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold">Dados bÃ¡sicos</h2>
+            <h2 className="text-lg font-semibold">Dados básicos</h2>
             <div className="mt-5 grid gap-4">
               <label className="grid gap-1 text-sm font-medium">
                 Nome
@@ -172,15 +172,15 @@ export default function AccountPage() {
               </label>
             </div>
             <button onClick={saveProfile} disabled={saving} className="mt-5 rounded-lg bg-[#5B4CF0] px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
-              {saving ? 'Salvando...' : 'Salvar alteraÃ§Ãµes'}
+              {saving ? 'Salvando...' : 'Salvar alterações'}
             </button>
           </section>
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h2 className="text-lg font-semibold">ConfirmaÃ§Ã£o de e-mail</h2>
-                <p className="mt-1 text-sm text-[#5B607C]">Confirme seu e-mail para garantir o recebimento dos alertas de preÃ§o.</p>
+                <h2 className="text-lg font-semibold">confirmação de e-mail</h2>
+                <p className="mt-1 text-sm text-[#5B607C]">Confirme seu e-mail para garantir o recebimento dos alertas de Preço.</p>
               </div>
               <span className={`rounded-full px-3 py-1 text-xs font-semibold ${profile?.emailVerified ? 'bg-[#e8f8ee] text-[#2f8a51]' : 'bg-[#fff6de] text-[#9a6a00]'}`}>
                 {profile?.emailVerified ? 'Confirmado' : 'Pendente'}
@@ -188,9 +188,9 @@ export default function AccountPage() {
             </div>
             {!profile?.emailVerified && (
               <div className="mt-5 grid gap-3">
-                <button onClick={requestCode} className="rounded-lg border border-[#5B4CF0] px-4 py-2 text-sm font-semibold text-[#5B4CF0]">Gerar cÃ³digo</button>
-                {devCode && <div className="rounded-lg bg-[#EEF2FF] px-3 py-2 text-sm text-[#3a176e]">CÃ³digo de teste: <strong>{devCode}</strong></div>}
-                <input value={code} onChange={(e) => setCode(e.target.value)} className="h-11 rounded-lg border border-[#E4E7F2] px-3 outline-none focus:border-[#5B4CF0]" placeholder="Digite o cÃ³digo" />
+                <button onClick={requestCode} className="rounded-lg border border-[#5B4CF0] px-4 py-2 text-sm font-semibold text-[#5B4CF0]">Gerar Código</button>
+                {devCode && <div className="rounded-lg bg-[#EEF2FF] px-3 py-2 text-sm text-[#3a176e]">Código de teste: <strong>{devCode}</strong></div>}
+                <input value={code} onChange={(e) => setCode(e.target.value)} className="h-11 rounded-lg border border-[#E4E7F2] px-3 outline-none focus:border-[#5B4CF0]" placeholder="Digite o Código" />
                 <button onClick={confirmEmail} className="rounded-lg bg-[#58bd7a] px-4 py-2 text-sm font-semibold text-white">Confirmar e-mail</button>
               </div>
             )}
@@ -254,7 +254,7 @@ export default function AccountPage() {
         </div>
         <footer className="mt-8 flex flex-wrap gap-4 text-sm text-[#5B607C]">
           <Link href="/faq" className="hover:text-[#5B4CF0]">FAQ</Link>
-          <Link href="/privacidade" className="hover:text-[#5B4CF0]">PolÃ­tica de Privacidade</Link>
+          <Link href="/privacidade" className="hover:text-[#5B4CF0]">Política de Privacidade</Link>
           <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
         </footer>
       </div>

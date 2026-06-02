@@ -26,12 +26,12 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const data = await fetchMarketplace(slug);
-  if (!data?.marketplace) return { title: 'FarmÃ¡cia | Radar do Berço', robots: { index: false } };
+  if (!data?.marketplace) return { title: 'Farmácia | Radar do Berço', robots: { index: false } };
 
   const storeName = data.marketplace.name;
   const url = `${SITE_URL}/farmacia/${slug}`;
-  const title = `${storeName} â€” Melhores PreÃ§os | Radar do Berço`;
-  const description = `Compare preÃ§os na ${storeName}. ${data.total} ofertas monitoradas em tempo real pelo Radar do Berço com histÃ³rico e alertas automÃ¡ticos.`;
+  const title = `${storeName} — Melhores preços | Radar do Berço`;
+  const description = `Compare preços na ${storeName}. ${data.total} ofertas monitoradas em tempo real pelo Radar do Berço com histórico e alertas automáticos.`;
 
   return {
     title,
@@ -62,7 +62,7 @@ export default async function FarmaciaPage({ params }: Props) {
     '@type': 'Store',
     name: marketplace.name,
     url: `${SITE_URL}/farmacia/${slug}`,
-    description: `PreÃ§os na ${marketplace.name} monitorados pelo Radar do Berço.`,
+    description: `preços na ${marketplace.name} monitorados pelo Radar do Berço.`,
   };
 
   const breadcrumbJsonLd = {
@@ -91,10 +91,10 @@ export default async function FarmaciaPage({ params }: Props) {
           </nav>
 
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight">{marketplace.name} â€” Melhores PreÃ§os</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">{marketplace.name} — Melhores preços</h1>
             <p className="mt-1 text-sm text-[#5B607C]">
               {total} oferta{total !== 1 ? 's' : ''} monitorada{total !== 1 ? 's' : ''} na {marketplace.name}.
-              PreÃ§os atualizados automaticamente pelo Radar do Berço.
+              preços atualizados automaticamente pelo Radar do Berço.
             </p>
           </header>
 
@@ -110,7 +110,7 @@ export default async function FarmaciaPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     {p.imageUrl
                       ? <img src={p.imageUrl} alt={name} width={56} height={56} className="h-14 w-14 rounded-lg object-contain" />
-                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">ðŸ“¦</div>}
+                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">📦</div>}
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap gap-1">
                         {p.brand && <span className="text-xs font-semibold text-[#5B4CF0]">{p.brand}</span>}
@@ -134,10 +134,10 @@ export default async function FarmaciaPage({ params }: Props) {
           </div>
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">Monitore preÃ§os na {marketplace.name} automaticamente</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas quando o produto que vocÃª quer entrar em promoÃ§Ã£o.</p>
+            <h2 className="text-base font-semibold">Monitore preços na {marketplace.name} automaticamente</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas quando o produto que Você quer entrar em promoção.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar conta grÃ¡tis
+              Criar conta Grátis
             </a>
           </section>
         </div>

@@ -126,7 +126,7 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
               <div className="flex justify-center rounded-lg bg-[#f8f3ff] p-4">
                 {product.imageUrl
                   ? <img src={product.imageUrl} alt={name} width={144} height={144} className="h-36 w-36 object-contain" />
-                  : <div className="flex h-36 w-36 items-center justify-center text-5xl text-[#5B4CF0]">ðŸ“¦</div>}
+                  : <div className="flex h-36 w-36 items-center justify-center text-5xl text-[#5B4CF0]">📦</div>}
               </div>
 
               {/* Info */}
@@ -152,16 +152,16 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                 )}
 
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  <PriceStat label="Menor preÃ§o" value={bestPrice ? money(bestPrice) : 'IndisponÃ­vel'} highlight />
+                  <PriceStat label="Menor Preço" value={bestPrice ? money(bestPrice) : 'Indisponível'} highlight />
                   <PriceStat label="Lojas monitoradas" value={`${allOffers.length}`} />
-                  <PriceStat label="Economia possÃ­vel" value={spread > 0 ? money(spread) : '-'} />
+                  <PriceStat label="Economia possível" value={spread > 0 ? money(spread) : '-'} />
                 </div>
               </div>
 
               {/* CTA */}
               <div className="rounded-lg bg-[#EEF2FF] p-4">
-                <p className="text-sm font-medium text-[#5B607C]">Melhor preÃ§o agora</p>
-                <p className="mt-2 text-3xl font-bold text-[#5B4CF0]">{best ? money(offerPrice(best)) : 'â€”'}</p>
+                <p className="text-sm font-medium text-[#5B607C]">Melhor Preço agora</p>
+                <p className="mt-2 text-3xl font-bold text-[#5B4CF0]">{best ? money(offerPrice(best)) : '—'}</p>
                 {best && <p className="mt-1 text-sm text-[#090A3D]">{best.marketplace.name}</p>}
                 {best?.pricePerUnit && (
                   <p className="mt-1 text-xs text-[#5B607C]">{money(Number(best.pricePerUnit))} por unidade</p>
@@ -176,22 +176,22 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                   href="/login"
                   className="mt-4 block w-full rounded-lg bg-[#5B4CF0] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#493BD0]"
                 >
-                  Criar alerta de preÃ§o grÃ¡tis
+                  Criar alerta de Preço Grátis
                 </Link>
-                <p className="mt-2 text-center text-xs text-[#8A8FB1]">Receba notificaÃ§Ã£o quando baixar</p>
+                <p className="mt-2 text-center text-xs text-[#8A8FB1]">Receba notificação quando baixar</p>
               </div>
             </div>
           </section>
 
-          {/* ComparaÃ§Ã£o de farmÃ¡cias */}
+          {/* Comparação de farmácias */}
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold">ComparaÃ§Ã£o de preÃ§os por farmÃ¡cia</h2>
+            <h2 className="text-lg font-semibold">Comparação de preços por Farmácia</h2>
             <p className="mt-1 mb-4 text-sm text-[#5B607C]">
-              PreÃ§os coletados automaticamente pelo Radar do Berço. Compare antes de comprar.
+              preços coletados automaticamente pelo Radar do Berço. Compare antes de comprar.
             </p>
             <div className="space-y-3">
               {allOffers.length === 0 && (
-                <p className="text-sm text-[#8A8FB1]">Nenhuma oferta disponÃ­vel no momento.</p>
+                <p className="text-sm text-[#8A8FB1]">Nenhuma oferta dispoNível no momento.</p>
               )}
               {allOffers.map((offer, i) => (
                 <div
@@ -202,11 +202,11 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
                         {i === 0 && offer.availability && (
-                          <span className="rounded-full bg-[#e8f8ee] px-2 py-0.5 text-xs font-semibold text-[#2f8a51]">melhor preÃ§o</span>
+                          <span className="rounded-full bg-[#e8f8ee] px-2 py-0.5 text-xs font-semibold text-[#2f8a51]">melhor Preço</span>
                         )}
                         <span className="font-semibold">{offer.marketplace.name}</span>
                         {!offer.availability && (
-                          <span className="rounded-full bg-[#fff1f1] px-2 py-0.5 text-xs font-semibold text-[#b13a3a]">indisponÃ­vel</span>
+                          <span className="rounded-full bg-[#fff1f1] px-2 py-0.5 text-xs font-semibold text-[#b13a3a]">indispoNível</span>
                         )}
                       </div>
                       {offer.pricePerUnit && (
@@ -239,25 +239,25 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
             </div>
           </section>
 
-          {/* CTA informativo â€” contexto dinÃ¢mico quando dealScore disponÃ­vel */}
+          {/* CTA informativo — contexto dinâmico quando dealScore dispoNível */}
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-6 text-center shadow-sm">
             {dealScore && dealScore.score >= 75 ? (
               <>
                 <div className="inline-flex items-center gap-2 rounded-full bg-[#e8f8ee] px-4 py-1.5 text-sm font-semibold text-[#2f8a51]">
-                  {dealScore.emoji} DealScore {dealScore.score}/100 â€” {dealScore.label}
+                  {dealScore.emoji} DealScore {dealScore.score}/100 — {dealScore.label}
                 </div>
-                <h2 className="mt-3 text-lg font-semibold">Este Ã© um bom momento para comprar</h2>
+                <h2 className="mt-3 text-lg font-semibold">Este é um bom momento para comprar</h2>
                 <p className="mt-2 text-sm text-[#5B607C]">
-                  O Radar do Berço analisou o histÃ³rico de preÃ§os de <strong>{name}</strong> e identificou esta como uma oportunidade acima da mÃ©dia.
-                  Crie uma conta gratuita para monitorar e receber alertas quando o preÃ§o cair ainda mais.
+                  O Radar do Berço analisou o histórico de preços de <strong>{name}</strong> e identificou esta como uma oportunidade acima da média.
+                  Crie uma conta gratuita para monitorar e receber alertas quando o Preço cair ainda mais.
                 </p>
               </>
             ) : (
               <>
                 <h2 className="text-lg font-semibold">Vale a pena comprar agora?</h2>
                 <p className="mt-2 text-sm text-[#5B607C]">
-                  O Radar do Berço analisa o histÃ³rico de preÃ§os de <strong>{name}</strong> e calcula automaticamente se Ã© um bom momento para comprar.
-                  Crie uma conta gratuita e receba alertas quando o preÃ§o baixar.
+                  O Radar do Berço analisa o histórico de preços de <strong>{name}</strong> e calcula automaticamente se é um bom momento para comprar.
+                  Crie uma conta gratuita e receba alertas quando o Preço baixar.
                 </p>
               </>
             )}
@@ -265,9 +265,9 @@ export const PublicProductPage: FC<{ product: Product; internalLinks?: SeoIntern
               href="/login"
               className="mt-4 inline-block rounded-lg bg-[#5B4CF0] px-6 py-3 text-sm font-semibold text-white hover:bg-[#493BD0]"
             >
-              ðŸ”” Monitorar preÃ§o grÃ¡tis
+              🔔 Monitorar Preço Grátis
             </Link>
-            <p className="mt-2 text-xs text-[#8A8FB1]">GrÃ¡tis Â· Sem cartÃ£o Â· Cancele quando quiser</p>
+            <p className="mt-2 text-xs text-[#8A8FB1]">Grátis Â· Sem cartão Â· Cancele quando quiser</p>
           </section>
 
           <SeoInternalLinks graph={internalLinks} />

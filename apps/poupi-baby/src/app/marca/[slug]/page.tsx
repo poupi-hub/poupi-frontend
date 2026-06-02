@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data = await fetchBrand(slug);
   if (!data?.brand) return { title: 'Marca | Radar do Berço', robots: { index: false } };
 
-  const title = `${data.brand} â€” Melhores PreÃ§os | Radar do Berço`;
-  const description = `Compare preÃ§os de produtos ${data.brand} nas farmÃ¡cias. ${data.total} produtos monitorados com histÃ³rico e alertas automÃ¡ticos.`;
+  const title = `${data.brand} — Melhores preços | Radar do Berço`;
+  const description = `Compare preços de produtos ${data.brand} nas farmácias. ${data.total} produtos monitorados com histórico e alertas automáticos.`;
   const url = `${SITE_URL}/marca/${slug}`;
 
   return {
@@ -59,9 +59,9 @@ export default async function BrandPage({ params }: Props) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `${brand} â€” Melhores PreÃ§os`,
+    name: `${brand} — Melhores preços`,
     url: `${SITE_URL}/marca/${slug}`,
-    description: `Compare preÃ§os de ${brand} nas farmÃ¡cias. ${total} produtos.`,
+    description: `Compare preços de ${brand} nas farmácias. ${total} produtos.`,
   };
 
   const breadcrumbJsonLd = {
@@ -90,10 +90,10 @@ export default async function BrandPage({ params }: Props) {
           </nav>
 
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight">{brand} â€” Melhores PreÃ§os</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">{brand} — Melhores preços</h1>
             <p className="mt-1 text-sm text-[#5B607C]">
               {total} produto{total !== 1 ? 's' : ''} {brand} monitorado{total !== 1 ? 's' : ''}.
-              Compare preÃ§os nas principais farmÃ¡cias e drogarias.
+              Compare preços nas principais farmácias e drogarias.
             </p>
           </header>
 
@@ -111,7 +111,7 @@ export default async function BrandPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     {p.imageUrl
                       ? <img src={p.imageUrl} alt={name} width={56} height={56} className="h-14 w-14 rounded-lg object-contain" />
-                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">ðŸ“¦</div>}
+                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">📦</div>}
                     <div className="min-w-0 flex-1">
                       {p.category && <p className="text-xs font-semibold text-[#2f8a51]">{p.category}</p>}
                       <h2 className="mt-0.5 line-clamp-2 text-sm font-semibold">{name}</h2>
@@ -122,7 +122,7 @@ export default async function BrandPage({ params }: Props) {
                     <div>
                       {bestPrice
                         ? <p className="text-lg font-bold text-[#5B4CF0]">{money(bestPrice)}</p>
-                        : <p className="text-sm text-[#8A8FB1]">IndisponÃ­vel</p>}
+                        : <p className="text-sm text-[#8A8FB1]">Indisponível</p>}
                       {bestOffer?.pricePerUnit && (
                         <p className="text-xs text-[#5B607C]">{money(Number(bestOffer.pricePerUnit))}/un</p>
                       )}
@@ -138,9 +138,9 @@ export default async function BrandPage({ params }: Props) {
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
             <h2 className="text-base font-semibold">Monitore produtos {brand} automaticamente</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas quando o preÃ§o baixar nas suas farmÃ¡cias favoritas.</p>
+            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas quando o Preço baixar nas suas farmácias favoritas.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar conta grÃ¡tis
+              Criar conta Grátis
             </a>
           </section>
         </div>

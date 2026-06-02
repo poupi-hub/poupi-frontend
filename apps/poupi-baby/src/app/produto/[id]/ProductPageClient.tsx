@@ -380,26 +380,26 @@ export function ProductPageClient() {
 
               {data.priceIntelligence && data.priceIntelligence.dataQuality !== 'insufficient' && (
                 <div className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-                  <h2 className="mb-3 text-lg font-semibold">InteligÃªncia de preÃ§o</h2>
+                  <h2 className="mb-3 text-lg font-semibold">Inteligência de Preço</h2>
                   <div className="space-y-2 text-sm">
                     {data.priceIntelligence.lowestPrice30d !== null && (
-                      <IntelRow label="Menor preÃ§o 30 dias" value={money(data.priceIntelligence.lowestPrice30d)} />
+                      <IntelRow label="Menor Preço 30 dias" value={money(data.priceIntelligence.lowestPrice30d)} />
                     )}
                     {data.priceIntelligence.lowestPrice90d !== null && (
-                      <IntelRow label="Menor preÃ§o 90 dias" value={money(data.priceIntelligence.lowestPrice90d)} />
+                      <IntelRow label="Menor Preço 90 dias" value={money(data.priceIntelligence.lowestPrice90d)} />
                     )}
                     {data.priceIntelligence.allTimeMin !== null && (
-                      <IntelRow label="MÃ­nimo histÃ³rico" value={money(data.priceIntelligence.allTimeMin)} />
+                      <IntelRow label="Mínimo histórico" value={money(data.priceIntelligence.allTimeMin)} />
                     )}
                     {data.priceIntelligence.baseline90d !== null && (
-                      <IntelRow label="MÃ©dia 90 dias" value={money(data.priceIntelligence.baseline90d)} />
+                      <IntelRow label="Média 90 dias" value={money(data.priceIntelligence.baseline90d)} />
                     )}
                     {data.priceIntelligence.trendDirection !== 'insufficient_data' && (
                       <IntelRow
-                        label="TendÃªncia"
+                        label="Tendência"
                         value={
-                          data.priceIntelligence.trendDirection === 'falling' ? 'ðŸ“‰ Queda' :
-                          data.priceIntelligence.trendDirection === 'rising'  ? 'ðŸ“ˆ Alta' : 'ã€°ï¸ EstÃ¡vel'
+                          data.priceIntelligence.trendDirection === 'falling' ? '📉 Queda' :
+                          data.priceIntelligence.trendDirection === 'rising'  ? '📈 Alta' : 'ã€°ï¸ estável'
                         }
                         valueColor={
                           data.priceIntelligence.trendDirection === 'falling' ? '#2f8a51' :
@@ -411,13 +411,13 @@ export function ProductPageClient() {
                       <IntelRow
                         label="Volatilidade"
                         value={
-                          data.priceIntelligence.volatilityLabel === 'low'    ? 'ðŸŸ¢ Baixa' :
-                          data.priceIntelligence.volatilityLabel === 'medium' ? 'ðŸŸ¡ MÃ©dia' : 'ðŸ”´ Alta'
+                          data.priceIntelligence.volatilityLabel === 'low'    ? '🟢 Baixa' :
+                          data.priceIntelligence.volatilityLabel === 'medium' ? '🟡 Média' : '🔴 Alta'
                         }
                       />
                     )}
                     <div className="pt-1 text-xs text-[#8A8FB1]">
-                      {data.priceIntelligence.dataPoints30d} pontos nos Ãºltimos 30 dias
+                      {data.priceIntelligence.dataPoints30d} pontos nos últimos 30 dias
                     </div>
                   </div>
                 </div>

@@ -22,9 +22,9 @@ type BillingStatus = {
 };
 
 const FALLBACK_PLANS: Plan[] = [
-  { id: 'free', name: 'Free', priceBrl: 0, description: 'Para comeÃ§ar a acompanhar preÃ§os.' },
-  { id: 'plus', name: 'Plus', priceBrl: 14.9, description: 'Mais produtos, alertas ilimitados e histÃ³rico ampliado.', highlight: true },
-  { id: 'pro', name: 'Pro', priceBrl: 39.9, description: 'Recursos avanÃ§ados para quem acompanha muitas compras.' },
+  { id: 'free', name: 'Free', priceBrl: 0, description: 'Para começar a acompanhar preços.' },
+  { id: 'plus', name: 'Plus', priceBrl: 14.9, description: 'Mais produtos, alertas ilimitados e histórico ampliado.', highlight: true },
+  { id: 'pro', name: 'Pro', priceBrl: 39.9, description: 'Recursos avançados para quem acompanha muitas compras.' },
 ];
 
 export default function BillingPage() {
@@ -53,7 +53,7 @@ export default function BillingPage() {
     const data = await res.json().catch(() => ({}));
     setLoadingPlan(null);
     if (!res.ok) {
-      setError(data?.error || data?.message || 'NÃ£o foi possÃ­vel iniciar a assinatura.');
+      setError(data?.error || data?.message || 'Não foi possível iniciar a assinatura.');
       return;
     }
     if (data?.checkoutUrl) window.location.href = data.checkoutUrl;
@@ -64,7 +64,7 @@ export default function BillingPage() {
   }
 
   async function cancel() {
-    if (!confirm('Cancelar sua assinatura? O acesso permanece atÃ© o fim do perÃ­odo pago.')) return;
+    if (!confirm('Cancelar sua assinatura? O acesso permanece Até o fim do período pago.')) return;
     setError(null);
     const res = await fetch('/api/billing/cancel', {
       method: 'POST',
@@ -73,10 +73,10 @@ export default function BillingPage() {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setError(data?.error || data?.message || 'NÃ£o foi possÃ­vel cancelar.');
+      setError(data?.error || data?.message || 'Não foi possível cancelar.');
       return;
     }
-    setMessage('Assinatura cancelada. Seu acesso permanece atÃ© o fim do perÃ­odo.');
+    setMessage('Assinatura cancelada. Seu acesso permanece Até o fim do período.');
     await loadStatus();
   }
 
@@ -92,7 +92,7 @@ export default function BillingPage() {
           <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
             <div>
               <h1 className="text-3xl font-semibold tracking-tight">Planos Radar do Berço</h1>
-              <p className="mt-2 max-w-2xl text-sm text-[#5B607C]">Escolha o nÃ­vel de acompanhamento ideal para economizar com menos esforÃ§o.</p>
+              <p className="mt-2 max-w-2xl text-sm text-[#5B607C]">Escolha o Nível de acompanhamento ideal para economizar com menos esforço.</p>
             </div>
             <div className="rounded-lg bg-[#EEF2FF] p-4 text-[#3a176e]">
               <div className="text-sm">Seu plano atual</div>
@@ -116,15 +116,15 @@ export default function BillingPage() {
                   <h2 className="text-2xl font-semibold">{plan.name}</h2>
                   <p className="mt-2 min-h-10 text-sm text-[#5B607C]">{plan.description}</p>
                   <div className="mt-6">
-                    <span className="text-3xl font-semibold">{plan.priceBrl === 0 ? 'GrÃ¡tis' : plan.priceBrl.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                    {plan.priceBrl > 0 && <span className="text-sm text-[#5B607C]">/mÃªs</span>}
+                    <span className="text-3xl font-semibold">{plan.priceBrl === 0 ? 'Grátis' : plan.priceBrl.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    {plan.priceBrl > 0 && <span className="text-sm text-[#5B607C]">/mês</span>}
                   </div>
                   <ul className="mt-6 grid gap-3 text-sm text-[#3d314f]">
                     {(plan.id === 'free'
-                      ? ['AtÃ© 10 produtos', '1 alerta ativo', 'HistÃ³rico de 7 dias']
+                      ? ['Até 10 produtos', '1 alerta ativo', 'histórico de 7 dias']
                       : plan.id === 'plus'
-                      ? ['AtÃ© 200 produtos', 'Alertas ilimitados', 'HistÃ³rico de 90 dias', 'Prioridade de sincronizaÃ§Ã£o']
-                      : ['Produtos ilimitados', 'Alertas ilimitados', 'HistÃ³rico completo', 'Recursos avanÃ§ados']
+                      ? ['Até 200 produtos', 'Alertas ilimitados', 'histórico de 90 dias', 'Prioridade de sincronização']
+                      : ['Produtos ilimitados', 'Alertas ilimitados', 'histórico completo', 'Recursos avançados']
                     ).map((item) => <li key={item}><i className="ti ti-check mr-2 text-[#58bd7a]" />{item}</li>)}
                   </ul>
                   <button
@@ -146,7 +146,7 @@ export default function BillingPage() {
               <div>
                 <h2 className="text-lg font-semibold">Gerenciar assinatura</h2>
                 <p className="mt-1 text-sm text-[#5B607C]">
-                  {status?.expiresAt ? `Seu acesso atual vai atÃ© ${new Date(status.expiresAt).toLocaleDateString('pt-BR')}.` : 'VocÃª possui uma assinatura ativa.'}
+                  {status?.expiresAt ? `Seu acesso atual vai Até ${new Date(status.expiresAt).toLocaleDateString('pt-BR')}.` : 'Você possui uma assinatura ativa.'}
                 </p>
               </div>
               <button onClick={cancel} className="rounded-lg border border-[#f2dada] px-4 py-2 text-sm font-semibold text-[#b13a3a] hover:bg-[#fff1f1]">Cancelar assinatura</button>
@@ -155,7 +155,7 @@ export default function BillingPage() {
         )}
         <footer className="mt-8 flex flex-wrap gap-4 text-sm text-[#5B607C]">
           <Link href="/faq" className="hover:text-[#5B4CF0]">FAQ</Link>
-          <Link href="/privacidade" className="hover:text-[#5B4CF0]">PolÃ­tica de Privacidade</Link>
+          <Link href="/privacidade" className="hover:text-[#5B4CF0]">Política de Privacidade</Link>
           <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
         </footer>
       </div>

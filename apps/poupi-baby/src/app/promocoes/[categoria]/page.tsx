@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const categoryName = data?.category ?? deSlug(categoria);
   const url = `${SITE_URL}/promocoes/${categoria}`;
 
-  const title = `PromoÃ§Ã£o ${categoryName} â€” Ofertas Hoje | Radar do Berço`;
-  const description = `As melhores promoÃ§Ãµes de ${categoryName} nas farmÃ¡cias. Produtos com preÃ§o abaixo da mÃ©dia histÃ³rica, rastreados em tempo real pelo Radar do Berço.`;
+  const title = `promoção ${categoryName} — Ofertas Hoje | Radar do Berço`;
+  const description = `As melhores promoções de ${categoryName} nas farmácias. Produtos com Preço abaixo da média histórica, rastreados em tempo real pelo Radar do Berço.`;
 
   return {
     title,
@@ -76,9 +76,9 @@ export default async function PromoçõesPage({ params }: Props) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `PromoÃ§Ã£o ${categoryName}`,
+    name: `promoção ${categoryName}`,
     url: `${SITE_URL}/promocoes/${categoria}`,
-    description: `PromoÃ§Ãµes de ${categoryName} nas farmÃ¡cias.`,
+    description: `Promoções de ${categoryName} nas farmácias.`,
   };
 
   return (
@@ -94,17 +94,17 @@ export default async function PromoçõesPage({ params }: Props) {
               <li aria-hidden>/</li>
               <li><a href={`/categoria/${categoria}`} className="hover:text-[#5B4CF0]">{categoryName}</a></li>
               <li aria-hidden>/</li>
-              <li className="font-medium text-[#090A3D]">PromoÃ§Ãµes</li>
+              <li className="font-medium text-[#090A3D]">Promoções</li>
             </ol>
           </nav>
 
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight">PromoÃ§Ã£o {categoryName} â€” Ofertas de Hoje</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">promoção {categoryName} — Ofertas de Hoje</h1>
             <p className="mt-1 text-sm text-[#5B607C]">
-              Produtos com desconto em relaÃ§Ã£o ao preÃ§o original.
+              Produtos com desconto em relação ao Preço original.
               {promoProducts.length > 0
-                ? ` ${promoProducts.length} produto${promoProducts.length !== 1 ? 's' : ''} em promoÃ§Ã£o agora.`
-                : ' PreÃ§os rastreados nas principais farmÃ¡cias.'}
+                ? ` ${promoProducts.length} produto${promoProducts.length !== 1 ? 's' : ''} em promoção agora.`
+                : ' preços rastreados nas principais farmácias.'}
             </p>
           </header>
 
@@ -131,7 +131,7 @@ export default async function PromoçõesPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     {p.imageUrl
                       ? <img src={p.imageUrl} alt={name} width={56} height={56} className="h-14 w-14 rounded-lg object-contain" />
-                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">ðŸ“¦</div>}
+                      : <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-2xl">📦</div>}
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap gap-1">
                         {p.brand && <span className="text-xs font-semibold text-[#5B4CF0]">{p.brand}</span>}
@@ -146,7 +146,7 @@ export default async function PromoçõesPage({ params }: Props) {
                   <div className="mt-3">
                     {orig && hasDiscount && <p className="text-xs text-[#5B607C] line-through">{money(orig)}</p>}
                     {cur ? <p className={`text-lg font-bold ${hasDiscount ? 'text-[#2f8a51]' : 'text-[#5B4CF0]'}`}>{money(cur)}</p>
-                      : <p className="text-sm text-[#8A8FB1]">IndisponÃ­vel</p>}
+                      : <p className="text-sm text-[#8A8FB1]">Indisponível</p>}
                     {o?.marketplace?.name && <p className="text-xs text-[#8A8FB1]">{o.marketplace.name}</p>}
                   </div>
                 </a>
@@ -155,10 +155,10 @@ export default async function PromoçõesPage({ params }: Props) {
           </div>
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">NÃ£o perca promoÃ§Ãµes de {categoryName}</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas automÃ¡ticos quando o preÃ§o baixar na sua farmÃ¡cia favorita.</p>
+            <h2 className="text-base font-semibold">Não perca promoções de {categoryName}</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">Receba alertas automáticos quando o Preço baixar na sua Farmácia favorita.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar alerta grÃ¡tis
+              Criar alerta Grátis
             </a>
           </section>
         </div>

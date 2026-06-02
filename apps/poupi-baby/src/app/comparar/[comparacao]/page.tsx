@@ -47,8 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const nameA = a.canonicalName || a.title;
   const nameB = b.canonicalName || b.title;
   const url = `${SITE_URL}/comparar/${canonicalSlug}`;
-  const title = `${nameA} vs ${nameB} â€” Qual Ã© Melhor? | Radar do Berço`;
-  const description = `Compare ${nameA} e ${nameB}: preÃ§o atual, histÃ³rico, custo por unidade e qual tem o melhor custo-benefÃ­cio agora.`;
+  const title = `${nameA} vs ${nameB} — Qual é Melhor? | Radar do Berço`;
+  const description = `Compare ${nameA} e ${nameB}: Preço atual, histórico, custo por unidade e qual tem o melhor custo-benefício agora.`;
 
   return {
     title,
@@ -106,7 +106,7 @@ export default async function CompararPage({ params }: Props) {
     '@type': 'WebPage',
     name: `${nameA} vs ${nameB}`,
     url: `${SITE_URL}/comparar/${comparação}`,
-    description: `ComparaÃ§Ã£o de preÃ§os entre ${nameA} e ${nameB}.`,
+    description: `Comparação de preços entre ${nameA} e ${nameB}.`,
   };
 
   const faqJsonLd = {
@@ -115,26 +115,26 @@ export default async function CompararPage({ params }: Props) {
     mainEntity: [
       {
         '@type': 'Question',
-        name: `Qual Ã© mais barato, ${nameA} ou ${nameB}?`,
+        name: `Qual é mais barato, ${nameA} ou ${nameB}?`,
         acceptedAnswer: {
           '@type': 'Answer',
           text: winnerByPrice === 'A'
-            ? `${nameA} estÃ¡ mais barato: ${priceA ? money(priceA) : 'â€“'} vs ${priceB ? money(priceB) : 'â€“'}.`
+            ? `${nameA} está mais barato: ${priceA ? money(priceA) : '–'} vs ${priceB ? money(priceB) : '–'}.`
             : winnerByPrice === 'B'
-            ? `${nameB} estÃ¡ mais barato: ${priceB ? money(priceB) : 'â€“'} vs ${priceA ? money(priceA) : 'â€“'}.`
-            : `${nameA} e ${nameB} estÃ£o com preÃ§os iguais no momento.`,
+            ? `${nameB} está mais barato: ${priceB ? money(priceB) : '–'} vs ${priceA ? money(priceA) : '–'}.`
+            : `${nameA} e ${nameB} estão com preços iguais no momento.`,
         },
       },
       ...(winnerByPpu ? [{
         '@type': 'Question',
-        name: `Qual tem melhor custo-benefÃ­cio por unidade?`,
+        name: `Qual tem melhor custo-benefício por unidade?`,
         acceptedAnswer: {
           '@type': 'Answer',
           text: winnerByPpu === 'A'
-            ? `${nameA} tem menor custo por unidade: ${ppuA ? money(ppuA) : 'â€“'}/un vs ${ppuB ? money(ppuB) : 'â€“'}/un.`
+            ? `${nameA} tem menor custo por unidade: ${ppuA ? money(ppuA) : '–'}/un vs ${ppuB ? money(ppuB) : '–'}/un.`
             : winnerByPpu === 'B'
-            ? `${nameB} tem menor custo por unidade: ${ppuB ? money(ppuB) : 'â€“'}/un vs ${ppuA ? money(ppuA) : 'â€“'}/un.`
-            : 'Ambos tÃªm o mesmo custo por unidade.',
+            ? `${nameB} tem menor custo por unidade: ${ppuB ? money(ppuB) : '–'}/un vs ${ppuA ? money(ppuA) : '–'}/un.`
+            : 'Ambos têm o mesmo custo por unidade.',
         },
       }] : []),
     ],
@@ -157,9 +157,9 @@ export default async function CompararPage({ params }: Props) {
           </nav>
 
           <h1 className="text-2xl font-semibold tracking-tight">{nameA} <span className="text-[#5B4CF0]">vs</span> {nameB}</h1>
-          <p className="text-sm text-[#5B607C]">ComparaÃ§Ã£o de preÃ§o, custo por unidade e disponibilidade nas farmÃ¡cias.</p>
+          <p className="text-sm text-[#5B607C]">Comparação de Preço, custo por unidade e disponibilidade nas farmácias.</p>
 
-          {/* Cards de comparaÃ§Ã£o */}
+          {/* Cards de Comparação */}
           <div className="grid gap-4 sm:grid-cols-2">
             {([
               { product: prodA, offer: offerA, price: priceA, ppu: ppuA, slug: slugs[0], winner: winnerByPpu === 'A' || winnerByPrice === 'A', label: nameA },
@@ -172,13 +172,13 @@ export default async function CompararPage({ params }: Props) {
               >
                 {winner && (
                   <div className="mb-2 inline-flex items-center gap-1 rounded-full bg-[#e8f8ee] px-2.5 py-1 text-xs font-bold text-[#2f8a51]">
-                    âœ“ Melhor opÃ§Ã£o
+                    ✓ Melhor opção
                   </div>
                 )}
                 <div className="flex items-center gap-3">
                   {p.imageUrl
                     ? <img src={p.imageUrl} alt={label} width={64} height={64} className="h-16 w-16 rounded-lg object-contain" />
-                    : <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-3xl">ðŸ“¦</div>}
+                    : <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-[#EEF2FF] text-3xl">📦</div>}
                   <div>
                     {p.brand && <p className="text-xs font-semibold text-[#5B4CF0]">{p.brand}</p>}
                     <h2 className="font-semibold">{label}</h2>
@@ -187,8 +187,8 @@ export default async function CompararPage({ params }: Props) {
                 </div>
                 <div className="mt-4 space-y-2 border-t border-[#E4E7F2] pt-4">
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#5B607C]">Menor preÃ§o</span>
-                    <span className="font-bold text-[#5B4CF0]">{price ? money(price) : 'â€”'}</span>
+                    <span className="text-[#5B607C]">Menor Preço</span>
+                    <span className="font-bold text-[#5B4CF0]">{price ? money(price) : '—'}</span>
                   </div>
                   {ppu && (
                     <div className="flex justify-between text-sm">
@@ -198,7 +198,7 @@ export default async function CompararPage({ params }: Props) {
                   )}
                   {o?.marketplace && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-[#5B607C]">FarmÃ¡cia</span>
+                      <span className="text-[#5B607C]">Farmácia</span>
                       <span>{o.marketplace.name}</span>
                     </div>
                   )}
@@ -211,26 +211,26 @@ export default async function CompararPage({ params }: Props) {
             ))}
           </div>
 
-          {/* FAQ Schema visÃ­vel */}
+          {/* FAQ Schema visível */}
           {winnerByPrice && (
             <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-              <h2 className="mb-3 text-base font-semibold">Qual Ã© mais barato?</h2>
+              <h2 className="mb-3 text-base font-semibold">Qual é mais barato?</h2>
               <p className="text-sm text-[#5B607C]">
                 {winnerByPrice === 'A'
-                  ? `${nameA} estÃ¡ mais barato: ${priceA ? money(priceA) : 'â€“'} vs ${priceB ? money(priceB) : 'â€“'}.`
+                  ? `${nameA} está mais barato: ${priceA ? money(priceA) : '–'} vs ${priceB ? money(priceB) : '–'}.`
                   : winnerByPrice === 'B'
-                  ? `${nameB} estÃ¡ mais barato: ${priceB ? money(priceB) : 'â€“'} vs ${priceA ? money(priceA) : 'â€“'}.`
-                  : 'Ambos estÃ£o com o mesmo preÃ§o no momento.'}
+                  ? `${nameB} está mais barato: ${priceB ? money(priceB) : '–'} vs ${priceA ? money(priceA) : '–'}.`
+                  : 'Ambos estão com o mesmo Preço no momento.'}
               </p>
               {winnerByPpu && (
                 <div className="mt-3">
                   <h3 className="text-sm font-semibold">Custo por unidade</h3>
                   <p className="mt-1 text-sm text-[#5B607C]">
                     {winnerByPpu === 'A'
-                      ? `${nameA} tem menor custo por unidade: ${ppuA ? money(ppuA) : 'â€“'}/un.`
+                      ? `${nameA} tem menor custo por unidade: ${ppuA ? money(ppuA) : '–'}/un.`
                       : winnerByPpu === 'B'
-                      ? `${nameB} tem menor custo por unidade: ${ppuB ? money(ppuB) : 'â€“'}/un.`
-                      : 'Custo por unidade idÃªntico.'}
+                      ? `${nameB} tem menor custo por unidade: ${ppuB ? money(ppuB) : '–'}/un.`
+                      : 'Custo por unidade idêntico.'}
                   </p>
                 </div>
               )}
@@ -238,10 +238,10 @@ export default async function CompararPage({ params }: Props) {
           )}
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">Monitore os dois e compre na promoÃ§Ã£o</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">Crie alertas gratuitos e receba notificaÃ§Ã£o quando o preÃ§o baixar.</p>
+            <h2 className="text-base font-semibold">Monitore os dois e compre na promoção</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">Crie alertas gratuitos e receba notificação quando o Preço baixar.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar alertas grÃ¡tis
+              Criar alertas Grátis
             </a>
           </section>
         </div>
