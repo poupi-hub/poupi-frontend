@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="56" viewBox="0 0 180 56" role="img" aria-labelledby="title">
+  <title id="title">Drogasil</title>
+  <rect width="180" height="56" rx="10" fill="#fff"/>
+  <path d="M24 17h22a11 11 0 0 1 0 22H24z" fill="#e30613"/>
+  <path d="M34 22v12M28 28h18" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <text x="58" y="35" fill="#e30613" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800">Drogasil</text>
+</svg>

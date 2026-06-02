@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { MobileBottomNav } from '../../components/MobileBottomNav';
 
 type Alert = {
   id: string;
@@ -32,7 +33,7 @@ export default function AlertasPage() {
   const history = alerts.filter((alert) => !alert.active);
 
   return (
-    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 text-[#090A3D]">
+    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 pb-28 text-[#090A3D] lg:pb-8">
       <div className="mx-auto max-w-5xl">
         <Link href="/dashboard" className="text-sm font-medium text-[#5B4CF0]">Voltar ao painel</Link>
         <header className="mt-5 rounded-lg bg-white p-6 shadow-sm ring-1 ring-[#E4E7F2]">
@@ -113,6 +114,7 @@ export default function AlertasPage() {
           <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
         </footer>
       </div>
+      <MobileBottomNav />
     </main>
   );
 }

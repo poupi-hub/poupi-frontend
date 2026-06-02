@@ -15,12 +15,12 @@ const categories = [
 ];
 
 const benefits = [
-  ['Comparação em segundos', 'Veja onde o mesmo produto está mais barato sem abrir várias abas.'],
-  ['Alertas de preço', 'Receba aviso quando fraldas, fórmulas ou itens essenciais baixarem.'],
-  ['Histórico de preços', 'Entenda se a oferta esta realmente boa antes de comprar.'],
-  ['Economia real', 'Compare preço por unidade e evite promoções que parecem melhores do que são.'],
-  ['Centenas de lojas', 'Acompanhe ofertas em farmácias, marketplaces e lojas infantis conectadas.'],
-  ['Gratuito', 'Comece a buscar e criar alertas sem compromisso.'],
+  { title: 'Comparação em segundos', description: 'Veja onde o mesmo produto está mais barato sem abrir várias abas.', icon: 'ti-clock' },
+  { title: 'Alertas de preço', description: 'Receba aviso quando fraldas, fórmulas ou itens essenciais baixarem.', icon: 'ti-bell-ringing' },
+  { title: 'Histórico de preços', description: 'Entenda se a oferta esta realmente boa antes de comprar.', icon: 'ti-chart-line' },
+  { title: 'Economia real', description: 'Compare preço por unidade e evite promoções que parecem melhores do que são.', icon: 'ti-coin' },
+  { title: 'Centenas de lojas', description: 'Acompanhe ofertas em farmácias, marketplaces e lojas infantis conectadas.', icon: 'ti-building-store' },
+  { title: 'Gratuito', description: 'Comece a buscar e criar alertas sem compromisso.', icon: 'ti-circle-check' },
 ];
 
 const steps = [
@@ -29,7 +29,13 @@ const steps = [
   ['Você economiza', 'Escolha a melhor oferta ou ative um alerta para comprar no momento certo.'],
 ];
 
-const monitoredStores = ['Amazon', 'Magalu', 'Mercado Livre', 'Shopee', 'Americanas', 'Drogasil', 'Raia'];
+const monitoredStores = [
+  { name: 'Amazon', logo: '/logos/amazon.svg' },
+  { name: 'Magalu', logo: '/logos/magalu.svg' },
+  { name: 'Mercado Livre', logo: '/logos/mercado-livre.svg' },
+  { name: 'Drogasil', logo: '/logos/drogasil.svg' },
+  { name: 'Raia', logo: '/logos/raia.svg' },
+];
 
 export default function Home() {
   return (
@@ -95,8 +101,12 @@ export default function Home() {
             </div>
             <div className="mt-8 rounded-3xl bg-white/90 p-5 shadow-sm ring-1 ring-[#E3E7F5]">
               <p className="text-center text-sm font-semibold text-[#3D4263]">Comparamos preços de:</p>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-lg font-black text-[#17183F]">
-                {monitoredStores.map((store) => <span key={store}>{store}</span>)}
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                {monitoredStores.map((store) => (
+                  <div key={store.name} className="flex h-14 items-center justify-center rounded-lg border border-[#EEF0F8] bg-white px-3">
+                    <img src={store.logo} alt={`Logo ${store.name}`} width={180} height={56} className="h-9 w-full object-contain" />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -173,10 +183,10 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 py-14">
         <div className="grid gap-4 md:grid-cols-3">
-          {benefits.map(([title, description]) => (
+          {benefits.map(({ title, description, icon }) => (
             <article key={title} className="rounded-3xl border border-[#E4E7F2] bg-white p-6 shadow-sm">
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EEF2FF] text-[#5B4CF0]">
-                <i className="ti ti-circle-check text-xl" />
+                <i className={`ti ${icon} text-xl`} />
               </span>
               <h3 className="mt-5 text-lg font-black">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#3D4263]">{description}</p>

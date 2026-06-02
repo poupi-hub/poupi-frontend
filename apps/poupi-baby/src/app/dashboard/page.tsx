@@ -5,6 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 import { track } from '@vercel/analytics';
 import { BrandLogo } from '../../components/brand/BrandLogo';
+import { MobileBottomNav } from '../../components/MobileBottomNav';
 
 type Offer = {
   id: string;
@@ -197,7 +198,7 @@ export default function DashboardPage() {
   const offerCount = products.reduce((sum, product) => sum + (product.offers?.length ?? 0), 0);
 
   return (
-    <main className="min-h-screen bg-[#F7F8FC] text-[#090A3D]">
+    <main className="min-h-screen bg-[#F7F8FC] pb-24 text-[#090A3D] lg:pb-0">
       <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6">
         <aside className="hidden w-64 shrink-0 lg:block">
           <div className="sticky top-6 rounded-2xl border border-[#E4E7F2] bg-white p-4 shadow-sm">
@@ -406,6 +407,7 @@ export default function DashboardPage() {
           </footer>
         </section>
       </div>
+      <MobileBottomNav />
     </main>
   );
 }

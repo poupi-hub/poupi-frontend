@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { track } from '@vercel/analytics';
+import { MobileBottomNav } from '../../components/MobileBottomNav';
 
 type Plan = {
   id: string;
@@ -87,7 +88,7 @@ export default function BillingPage() {
   const days = status?.daysRemaining;
 
   return (
-    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 text-[#090A3D]">
+    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 pb-28 text-[#090A3D] lg:pb-8">
       <div className="mx-auto max-w-6xl">
         <Link href="/dashboard" className="text-sm font-medium text-[#5B4CF0]">Voltar ao painel</Link>
         <header className="mt-5 rounded-lg bg-white p-6 shadow-sm ring-1 ring-[#E4E7F2]">
@@ -111,8 +112,8 @@ export default function BillingPage() {
           {plans.map((plan) => {
             const isCurrent = plan.id === currentPlan;
             return (
-              <article key={plan.id} className={`relative rounded-lg border bg-white p-5 shadow-sm ${isCurrent ? 'border-[#5B4CF0] ring-2 ring-[#E4E7F2]' : 'border-[#E4E7F2]'} ${plan.highlight ? 'lg:-mt-3' : ''}`}>
-                {plan.highlight && <span className="absolute right-4 top-4 rounded-full bg-[#e8f8ee] px-3 py-1 text-xs font-semibold text-[#2f8a51]">Mais escolhido</span>}
+              <article key={plan.id} className={`relative rounded-lg border p-5 shadow-sm ${isCurrent ? 'border-[#5B4CF0] ring-2 ring-[#E4E7F2]' : 'border-[#E4E7F2]'} ${plan.highlight ? 'border-[#5B4CF0] bg-[#F6F3FF] shadow-[0_18px_50px_rgba(91,76,240,0.15)] ring-2 ring-[#DDD6FE] lg:-mt-3' : 'bg-white'}`}>
+                {plan.highlight && <span className="absolute right-4 top-4 rounded-full bg-[#5B4CF0] px-3 py-1 text-xs font-semibold text-white">Mais escolhido</span>}
                 {isCurrent && <span className="absolute left-4 top-4 rounded-full bg-[#EEF2FF] px-3 py-1 text-xs font-semibold text-[#5B4CF0]">Plano atual</span>}
                 <div className="pt-8">
                   <h2 className="text-2xl font-semibold">{plan.name}</h2>
@@ -121,6 +122,7 @@ export default function BillingPage() {
                     <span className="text-3xl font-semibold">{plan.priceBrl === 0 ? 'Grátis' : plan.priceBrl.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                     {plan.priceBrl > 0 && <span className="text-sm text-[#5B607C]">/mês</span>}
                   </div>
+                  {plan.id !== 'free' && <p className="mt-3 text-xs font-semibold text-[#5B607C]">Cancele quando quiser · Sem fidelidade</p>}
                   <ul className="mt-6 grid gap-3 text-sm text-[#3d314f]">
                     {(plan.id === 'free'
                       ? ['Até 10 produtos', '1 alerta ativo', 'histórico de 7 dias']
@@ -132,7 +134,7 @@ export default function BillingPage() {
                   <button
                     onClick={() => subscribe(plan.id)}
                     disabled={isCurrent || loadingPlan === plan.id}
-                    className={`mt-7 w-full rounded-lg px-4 py-3 text-sm font-semibold ${isCurrent ? 'border border-[#58bd7a] bg-white text-[#2f8a51]' : 'bg-[#5B4CF0] text-white'} disabled:opacity-70`}
+                    className={`mt-7 w-full rounded-lg px-4 py-3 text-sm font-semibold shadow-sm transition ${isCurrent ? 'border border-[#58bd7a] bg-white text-[#2f8a51]' : plan.highlight ? 'bg-[#5B4CF0] text-white shadow-[0_12px_30px_rgba(91,76,240,0.28)] hover:bg-[#493BD0]' : 'bg-[#090A3D] text-white hover:bg-[#17183F]'} disabled:opacity-70`}
                   >
                     {isCurrent ? 'Plano atual' : loadingPlan === plan.id ? 'Processando...' : plan.id === 'free' ? 'Plano gratuito' : `Assinar ${plan.name}`}
                   </button>
@@ -161,6 +163,7 @@ export default function BillingPage() {
           <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
         </footer>
       </div>
+      <MobileBottomNav />
     </main>
   );
 }

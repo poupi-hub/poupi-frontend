@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { MobileBottomNav } from '../../components/MobileBottomNav';
 
 type Profile = {
   name: string;
@@ -141,7 +142,7 @@ export default function AccountPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 text-[#090A3D]">
+    <main className="min-h-screen bg-[#F7F8FC] px-4 py-8 pb-28 text-[#090A3D] lg:pb-8">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-4">
           <div>
@@ -258,6 +259,7 @@ export default function AccountPage() {
           <Link href="/termos" className="hover:text-[#5B4CF0]">Termos de Uso</Link>
         </footer>
       </div>
+      <MobileBottomNav />
     </main>
   );
 }

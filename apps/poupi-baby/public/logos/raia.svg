@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="56" viewBox="0 0 180 56" role="img" aria-labelledby="title">
+  <title id="title">Raia</title>
+  <rect width="180" height="56" rx="10" fill="#fff"/>
+  <circle cx="37" cy="28" r="18" fill="#0b5cab"/>
+  <path d="M30 21l17 17M47 21L30 38" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <text x="66" y="36" fill="#0b5cab" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="900">Raia</text>
+</svg>
