@@ -30,6 +30,11 @@ jobs:
       - name: Deploy to Vercel
         run: |
           npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          # Injetar vars sensíveis que vercel pull não decripta fora da infra Vercel
+          echo 'NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}' >> .vercel/.env.production.local
+          echo 'INTERNAL_SECRET=${{ secrets.INTERNAL_SECRET }}' >> .vercel/.env.production.local
+          echo 'GOOGLE_CLIENT_ID=placeholder' >> .vercel/.env.production.local
+          echo 'GOOGLE_CLIENT_SECRET=placeholder' >> .vercel/.env.production.local
           npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
           npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
