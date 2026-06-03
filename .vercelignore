@@ -1,5 +1,12 @@
 node_modules
 .git
+.next
+.turbo
+.vercel/output
+UsersdevAppDataLocalTempprodutos.html
 .next/cache
 apps/*/node_modules
+apps/*/.next
+apps/*/.turbo
+apps/*/.vercel/output
 packages/*/node_modules
