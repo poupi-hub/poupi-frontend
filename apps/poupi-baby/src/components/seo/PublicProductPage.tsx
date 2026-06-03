@@ -6,6 +6,7 @@ import { PackageComparator } from '@/components/PackageComparator';
 import { PriceChart } from '@/components/PriceChart';
 import { resolveUnit, formatPricePerUnit } from '@/lib/unit-label';
 import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
 
 const SITE_URL = getSiteUrl();
 
@@ -48,44 +49,61 @@ type DealScoreBadge = { score: number; emoji: string; label: string; labelColor:
 type PriceHistoryPoint = { date: string; price: number };
 
 function dealScoreLabel(score: number) {
-  if (score >= 90) return 'Excelente';
-  if (score >= 80) return 'Otima oferta';
-  if (score >= 70) return 'Boa oferta';
-  return 'Oferta comum';
+  if (score >= 90) return 'Oferta Forte';
+  if (score >= 80) return 'Comprar Agora';
+  if (score >= 70) return 'Boa Oferta';
+  if (score >= 50) return 'Vale Monitorar';
+  return 'Melhor Esperar';
+}
+
+function dealScorePhrase(score: number): string {
+  if (score >= 90) return 'Essa é uma das melhores ofertas que já vimos para este produto.';
+  if (score >= 80) return 'Eu aproveitaria essa oferta.';
+  if (score >= 70) return 'Esse preço está melhor do que costumamos encontrar.';
+  if (score >= 50) return 'Se não tiver urgência, vale acompanhar mais alguns dias.';
+  return 'Já vimos preços melhores. Eu esperaria um pouco.';
+}
+
+function dealScoreEmoji(score: number): string {
+  if (score >= 90) return '🔥';
+  if (score >= 80) return '🟢';
+  if (score >= 70) return '🟢';
+  if (score >= 50) return '🟡';
+  return '⏳';
 }
 
 function buyAdvice(score?: number | null) {
   if (score == null) {
     return {
-      title: 'Acompanhe antes de decidir',
-      body: 'Ainda nao temos score suficiente para cravar o melhor momento. Crie um alerta e acompanhe as proximas quedas.',
+      title: 'Ainda coletando dados para este produto',
+      body: 'Estamos reunindo histórico de preço para dar uma recomendação mais precisa. Crie um alerta e te avisamos quando o preço cair.',
       tone: 'neutral',
     };
   }
   if (score >= 85) {
     return {
-      title: 'Excelente momento para compra',
-      body: 'Preco forte em relacao ao historico recente. Se este pacote atende sua necessidade, vale comprar agora.',
+      title: 'O preço está ótimo agora',
+      body: 'Se você precisa comprar agora, o preço atual está entre os melhores que registramos para este produto. Vale aproveitar.',
       tone: 'good',
     };
   }
   if (score >= 70) {
     return {
-      title: 'Boa oferta, mas compare os pacotes',
-      body: 'O preco esta competitivo. Confira o custo por unidade e veja se outro pacote entrega economia maior.',
+      title: 'Preço dentro da faixa esperada',
+      body: 'Se você precisa comprar agora, o preço atual está dentro da faixa esperada. Se puder esperar alguns dias, acredito que ainda existe espaço para encontrar uma oferta melhor.',
       tone: 'good',
     };
   }
   if (score >= 50) {
     return {
       title: 'Pode valer esperar uma queda',
-      body: 'A oferta nao parece excepcional agora. Criar um alerta ajuda a comprar quando o preco melhorar.',
+      body: 'O preço está um pouco acima do que costumamos ver. Se puder aguardar alguns dias, acredito que ainda existe espaço para encontrar uma oferta melhor.',
       tone: 'warn',
     };
   }
   return {
-    title: 'Nao recomendamos comprar agora',
-    body: 'Preco fraco para o historico recente. Acompanhe por alerta e espere uma oferta melhor.',
+    title: 'Momento desfavorável para compra',
+    body: 'O preço atual está acima do histórico recente. Se puder aguardar, vale criar um alerta e esperar uma oportunidade melhor chegar.',
     tone: 'bad',
   };
 }
@@ -120,8 +138,7 @@ export const PublicProductPage: FC<{
   const name = product.canonicalName || product.title;
   const unit = resolveUnit({ category: product.category, title: product.title, variantLabel: product.variantLabel });
   const available = product.offers.filter((o) => o.availability).sort((a, b) => offerPrice(a) - offerPrice(b));
-  const unavailable = product.offers.filter((o) => !o.availability);
-  const allOffers = [...available, ...unavailable];
+  const allOffers = available;
   const best = available[0] ?? null;
   const bestPrice = best ? offerPrice(best) : null;
   const prices = available.map(offerPrice);
@@ -177,6 +194,7 @@ export const PublicProductPage: FC<{
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
+      <SiteHeader />
       <main className="min-h-screen bg-[#F7F8FC] px-4 py-6 text-[#090A3D]">
         <div className="mx-auto max-w-5xl space-y-5">
 
@@ -252,9 +270,14 @@ export const PublicProductPage: FC<{
                 )}
                 {best && <p className="mt-1 text-sm text-[#090A3D]">{best.marketplace.name}</p>}
                 {dealScore && (
-                  <div title={`DealScore Nuvii Baby: ${dealScore.label}`} style={{ background: dealScore.labelColor + '18', borderColor: dealScore.labelColor + '44', color: dealScore.labelColor }} className="mt-3 flex items-center justify-between rounded-lg border px-3 py-2 text-sm font-semibold">
-                    <span>Deal Score</span>
-                    <span>{dealScore.score} · {dealScoreLabel(dealScore.score)}</span>
+                  <div
+                    style={{ background: dealScore.labelColor + '12', borderColor: dealScore.labelColor + '44', color: dealScore.labelColor }}
+                    className="mt-3 rounded-lg border px-3 py-2.5"
+                  >
+                    <p className="text-sm font-bold">
+                      {dealScoreEmoji(dealScore.score)} {dealScoreLabel(dealScore.score)} · {dealScore.score}/100
+                    </p>
+                    <p className="mt-0.5 text-xs font-medium opacity-90">{dealScorePhrase(dealScore.score)}</p>
                   </div>
                 )}
                 <Link
@@ -278,11 +301,11 @@ export const PublicProductPage: FC<{
           <section id="lojas" className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
             <h2 className="text-lg font-semibold">Compare as lojas antes de sair para comprar</h2>
             <p className="mt-1 mb-4 text-sm text-[#5B607C]">
-              {available.length} loja{available.length !== 1 ? 's' : ''} com disponibilidade no momento. O menor preco fica destacado, mas confira frete e custo por {unit}.
+              {available.length} loja{available.length !== 1 ? 's' : ''} com disponibilidade no momento. O menor preço fica destacado — confira frete e custo por {unit} antes de decidir.
             </p>
             <div className="space-y-3">
               {allOffers.length === 0 && (
-                <p className="text-sm text-[#8A8FB1]">Nenhuma oferta dispoNível no momento.</p>
+                <p className="text-sm text-[#8A8FB1]">Nenhuma oferta disponível no momento.</p>
               )}
               {allOffers.map((offer, i) => (
                 <div
@@ -293,11 +316,11 @@ export const PublicProductPage: FC<{
                     <div className="min-w-0">
                       <div className="flex flex-wrap items-center gap-2">
                         {i === 0 && offer.availability && (
-                          <span className="rounded-full bg-[#e8f8ee] px-2 py-0.5 text-xs font-semibold text-[#2f8a51]">Melhor preco hoje</span>
+                          <span className="rounded-full bg-[#e8f8ee] px-2 py-0.5 text-xs font-semibold text-[#2f8a51]">🏆 Melhor preço hoje</span>
                         )}
                         <span className="font-semibold">{offer.marketplace.name}</span>
                         {!offer.availability && (
-                          <span className="rounded-full bg-[#fff1f1] px-2 py-0.5 text-xs font-semibold text-[#b13a3a]">indispoNível</span>
+                          <span className="rounded-full bg-[#fff1f1] px-2 py-0.5 text-xs font-semibold text-[#b13a3a]">indisponível</span>
                         )}
                       </div>
                       {offer.pricePerUnit && (
@@ -333,28 +356,27 @@ export const PublicProductPage: FC<{
 
           {/* Historico publico */}
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 shadow-sm">
-            <h2 className="text-lg font-semibold">Historico de preco dos ultimos 30 dias</h2>
+            <h2 className="text-lg font-semibold">Histórico de preço — últimos 30 dias</h2>
             <p className="mt-1 text-sm text-[#5B607C]">
-              Resumo do menor preco encontrado nas lojas monitoradas recentemente.
+              Menor preço encontrado entre as lojas monitoradas a cada dia.
             </p>
             {recentSummary && (
               <div className="mt-4 grid gap-3 md:grid-cols-3">
                 <div className="rounded-lg border border-[#E4E7F2] bg-[#FAFBFF] p-3">
-                  <p className="text-xs font-medium text-[#5B607C]">Variação recente</p>
+                  <p className="text-xs font-medium text-[#5B607C]">Variação no período</p>
                   <p className="mt-1 text-sm font-semibold text-[#090A3D]">
                     Entre {money(recentSummary.min)} e {money(recentSummary.max)}
                   </p>
                 </div>
-                <div className="rounded-lg border border-[#E4E7F2] bg-[#FAFBFF] p-3">
-                  <p className="text-xs font-medium text-[#5B607C]">Hoje vs. média</p>
-                  <p className={`mt-1 text-sm font-semibold ${recentSummary.delta >= 0 ? 'text-[#2f8a51]' : 'text-[#b13a3a]'}`}>
-                    {Math.abs(recentSummary.delta)}% {recentSummary.delta >= 0 ? 'abaixo' : 'acima'} da media
-                  </p>
+                <div className={`rounded-lg border p-3 ${recentSummary.nearMin ? 'border-[#b9e4c7] bg-[#f3fbf6]' : 'border-[#E4E7F2] bg-[#FAFBFF]'}`}>
+                  <p className="text-xs font-medium text-[#5B607C]">Menor preço do período</p>
+                  <p className="mt-1 text-sm font-semibold text-[#2f8a51]">{money(recentSummary.min)}</p>
+                  {recentSummary.nearMin && <p className="text-xs text-[#2f8a51]">✓ Preço atual próximo do mínimo</p>}
                 </div>
-                <div className="rounded-lg border border-[#E4E7F2] bg-[#FAFBFF] p-3">
-                  <p className="text-xs font-medium text-[#5B607C]">Leitura rápida</p>
-                  <p className="mt-1 text-sm font-semibold text-[#090A3D]">
-                    {recentSummary.nearMin ? 'Um dos menores precos recentes' : 'Ainda pode baixar mais'}
+                <div className={`rounded-lg border p-3 ${recentSummary.delta >= 0 ? 'border-[#b9e4c7] bg-[#f3fbf6]' : 'border-[#f3dc9b] bg-[#fffaf0]'}`}>
+                  <p className="text-xs font-medium text-[#5B607C]">Preço atual vs. média</p>
+                  <p className={`mt-1 text-sm font-semibold ${recentSummary.delta >= 0 ? 'text-[#2f8a51]' : 'text-[#b87d00]'}`}>
+                    {Math.abs(recentSummary.delta)}% {recentSummary.delta >= 0 ? 'abaixo' : 'acima'} da média
                   </p>
                 </div>
               </div>
@@ -364,7 +386,7 @@ export const PublicProductPage: FC<{
                 <PriceChart data={recentHistory} />
               ) : (
                 <div className="rounded-lg bg-[#F2F4FF] p-6 text-center text-sm text-[#5B607C]">
-                  Historico sera formado nas proximas coletas deste produto.
+                  O histórico será formado nas próximas coletas deste produto.
                 </div>
               )}
             </div>
@@ -380,24 +402,30 @@ export const PublicProductPage: FC<{
             />
           )}
 
-          {/* CTA informativo — contexto dinâmico quando dealScore dispoNível */}
-          <section className="rounded-lg border border-[#E4E7F2] bg-white p-6 text-center shadow-sm">
+          {/* CTA — decisão de compra */}
+          <section className="rounded-lg border border-[#E4E7F2] bg-white p-6 shadow-sm">
+            <h2 className="text-base font-semibold text-[#090A3D]">Vale a pena comprar agora?</h2>
+            <div className={`mt-3 rounded-lg border p-4 ${
+              advice.tone === 'good' ? 'border-[#b9e4c7] bg-[#f3fbf6]'
+              : advice.tone === 'bad' ? 'border-[#f0c7c7] bg-[#fff7f7]'
+              : advice.tone === 'warn' ? 'border-[#f3dc9b] bg-[#fffaf0]'
+              : 'border-[#E4E7F2] bg-[#FAFBFF]'
+            }`}>
+              <p className="text-sm font-semibold text-[#090A3D]">{advice.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-[#5B607C]">{advice.body}</p>
+            </div>
             {dealScore && (
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#e8f8ee] px-4 py-1.5 text-sm font-semibold text-[#2f8a51]">
-                {dealScore.emoji} Score {dealScore.score}/100 - {dealScoreLabel(dealScore.score)}
-              </div>
+              <p className="mt-3 text-sm font-medium" style={{ color: dealScore.labelColor }}>
+                {dealScoreEmoji(dealScore.score)} {dealScorePhrase(dealScore.score)}
+              </p>
             )}
-            <h2 className="mt-3 text-lg font-semibold">Vale a pena comprar agora?</h2>
-            <p className="mt-2 text-sm text-[#5B607C]">
-              <strong>{advice.title}.</strong> {advice.body} O alerta gratuito ajuda a nao perder uma queda melhor de <strong>{name}</strong>.
-            </p>
             <Link
               href="/login"
-              className="mt-4 inline-block rounded-lg bg-[#5B4CF0] px-6 py-3 text-sm font-semibold text-white hover:bg-[#493BD0]"
+              className="mt-4 block w-full rounded-lg bg-[#5B4CF0] px-6 py-3 text-center text-sm font-semibold text-white hover:bg-[#493BD0]"
             >
-              🔔 Monitorar Preço Grátis
+              🔔 Criar alerta grátis para {name.split(' ').slice(0, 3).join(' ')}
             </Link>
-            <p className="mt-2 text-xs text-[#8A8FB1]">Grátis · Sem cartão · Cancele quando quiser</p>
+            <p className="mt-2 text-center text-xs text-[#8A8FB1]">Grátis · Sem cartão · Cancele quando quiser</p>
           </section>
 
           <SeoInternalLinks graph={internalLinks} />

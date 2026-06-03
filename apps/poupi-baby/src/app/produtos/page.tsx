@@ -4,6 +4,7 @@ import { getSiteUrl } from '@/lib/site-url';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
 import { resolveUnit, formatPricePerUnit } from '@/lib/unit-label';
 
 const BACKEND = getBackendUrl('3001');
@@ -92,6 +93,7 @@ export default async function ProdutosPage({
 
   return (
     <>
+    <SiteHeader />
     <main className="min-h-screen bg-[#F7F8FC] px-4 py-6 text-[#090A3D]">
       <div className="mx-auto max-w-6xl space-y-5">
         <nav className="text-xs text-[#5B607C]">
@@ -109,9 +111,17 @@ export default async function ProdutosPage({
         <header>
           <h1 className="text-2xl font-semibold tracking-tight">Encontre um produto e crie um alerta</h1>
           <p className="mt-1 text-sm text-[#5B607C]">
-            Pesquise por nome, marca ou categoria. O fluxo por URL continua disponivel quando o item ainda nao estiver no catalogo.
+            Pesquise por nome, marca ou categoria.
           </p>
         </header>
+
+        {/* Filtros rápidos */}
+        <div className="flex flex-wrap gap-2">
+          <Link href="/categoria/fraldas" className="rounded-full border border-[#E4E7F2] bg-white px-4 py-1.5 text-sm font-medium text-[#5B607C] hover:border-[#5B4CF0] hover:text-[#5B4CF0]">🍼 Fraldas</Link>
+          <Link href="/marca" className="rounded-full border border-[#E4E7F2] bg-white px-4 py-1.5 text-sm font-medium text-[#5B607C] hover:border-[#5B4CF0] hover:text-[#5B4CF0]">⭐ Marca</Link>
+          <Link href="/categoria/fraldas" className="rounded-full border border-[#E4E7F2] bg-white px-4 py-1.5 text-sm font-medium text-[#5B607C] hover:border-[#5B4CF0] hover:text-[#5B4CF0]">📏 Tamanho</Link>
+          <Link href="/melhor-preco" className="rounded-full border border-[#E4E7F2] bg-white px-4 py-1.5 text-sm font-medium text-[#5B607C] hover:border-[#5B4CF0] hover:text-[#5B4CF0]">🔥 Oferta</Link>
+        </div>
 
         <ProductSearch initialQuery={q} />
 
@@ -128,8 +138,8 @@ export default async function ProdutosPage({
                 {catalog.total} produto{catalog.total !== 1 ? 's' : ''} no catalogo atual.
               </p>
             </div>
-            <Link href="/dashboard#url-fallback" className="text-sm font-semibold text-[#5B4CF0]">
-              Nao encontrou seu produto?
+            <Link href="/dashboard" className="text-sm font-semibold text-[#5B4CF0]">
+              Não encontrou? Cole o link direto do produto →
             </Link>
           </div>
 
@@ -156,17 +166,17 @@ export default async function ProdutosPage({
                       )}
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-xs font-semibold text-[#5B4CF0]">
-                          {product.brand || product.category || 'Produto'}
+                          {product.brand || product.category || ''}
                         </p>
                         <h3 className="mt-1 line-clamp-2 text-sm font-semibold">{name}</h3>
-                        <p className="mt-1 truncate text-xs text-[#5B607C]">
-                          {product.category || 'Produto monitorado'}
-                        </p>
+                        {product.category && (
+                          <p className="mt-1 truncate text-xs text-[#5B607C]">{product.category}</p>
+                        )}
                       </div>
                     </div>
                   </Link>
                   <div className="mt-3 flex items-end justify-between gap-3">
-                    <span className="text-xs text-[#5B607C]">{pricePerUnit ? 'Melhor custo' : 'Menor preco'}</span>
+                    <span className="text-xs text-[#5B607C]">{pricePerUnit ? 'Custo por unidade' : 'Menor preço'}</span>
                     <span className="text-right text-base font-semibold text-[#5B4CF0]">
                       {pricePerUnit ? (
                         <>

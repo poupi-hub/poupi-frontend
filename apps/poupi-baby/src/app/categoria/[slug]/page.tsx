@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CategoryGrid } from '@/components/CategoryGrid';
 import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
 
 const BACKEND  = getBackendUrl("3001");
 const SITE_URL = getSiteUrl();
@@ -80,6 +81,7 @@ export default async function CategoryPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
+      <SiteHeader />
       <main className="min-h-screen bg-[#F7F8FC] px-4 py-6 text-[#090A3D]">
         <div className="mx-auto max-w-5xl space-y-5">
 
@@ -92,20 +94,20 @@ export default async function CategoryPage({ params }: Props) {
           </nav>
 
           <header>
-            <h1 className="text-2xl font-semibold tracking-tight">{category} — Melhores preços</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">{category} — Radar de preços</h1>
             <p className="mt-1 text-sm text-[#5B607C]">
-              {total} produto{total !== 1 ? 's' : ''} monitorado{total !== 1 ? 's' : ''} nas principais farmácias.
-              preços atualizados automaticamente pelo Nuvii Baby.
+              {total} produto{total !== 1 ? 's' : ''} monitorado{total !== 1 ? 's' : ''} agora. Cada card mostra se vale comprar hoje ou esperar.
             </p>
           </header>
 
           <CategoryGrid products={products} category={category} />
 
           <section className="rounded-lg border border-[#E4E7F2] bg-white p-5 text-center shadow-sm">
-            <h2 className="text-base font-semibold">Quer saber quando {category} entrar em promoção?</h2>
-            <p className="mt-1 text-sm text-[#5B607C]">O Nuvii Baby monitora preços 24h e envia alertas automáticos.</p>
+            <p className="text-sm font-bold text-[#5B4CF0]">🔔 Nunca pague caro de novo</p>
+            <h2 className="mt-1 text-base font-semibold">Eu aviso quando {category} entrar em oferta.</h2>
+            <p className="mt-1 text-sm text-[#5B607C]">Defina sua meta de preço em 30 segundos. Eu monitoro e te aviso na hora certa.</p>
             <a href="/login" className="mt-3 inline-block rounded-lg bg-[#5B4CF0] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#493BD0]">
-              Criar conta Grátis
+              Criar alerta grátis →
             </a>
           </section>
         </div>
